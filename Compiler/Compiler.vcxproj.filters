@@ -10,6 +10,12 @@
     <Filter Include="Lexical">
       <UniqueIdentifier>{df979a88-127d-4edc-ba9f-6d17152aefc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PositionScan">
+      <UniqueIdentifier>{42e18210-b432-42b5-82f6-0b16117509ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Error">
+      <UniqueIdentifier>{6c49e977-de15-44db-b913-42a2ee98f88a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,6 +30,12 @@
     <ClCompile Include="WordHashing.cpp">
       <Filter>Lexical</Filter>
     </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>Error</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionScan.cpp">
+      <Filter>PositionScan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -34,6 +46,12 @@
     </ClInclude>
     <ClInclude Include="WordHashing.h">
       <Filter>Lexical</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Error</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionScan.h">
+      <Filter>PositionScan</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

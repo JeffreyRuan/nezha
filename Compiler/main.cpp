@@ -1,15 +1,16 @@
 #include "stdafx.h"
+#include "Lexical.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	string doc_name = "No document connected.";
+	string doc_name = "Code.txt";
 
-	switch (argc)
+	/*switch (argc)
 	{
 	case 2: doc_name = argv[1]; break;
-	default: break;
-	}
+	default: cout << "No document connected." << endl ; return 1; break;
+	}*/
 
-	cout << doc_name << endl;
+	Lexical lexicalAnalyzer(doc_name);
 }

@@ -1,1 +1,1 @@
-print my	
+array begin 4rint val

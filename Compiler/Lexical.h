@@ -1,13 +1,16 @@
 #pragma once
 #include "WordHashing.h"
+#include "PositionScan.h"
 
 class Lexical
 {
 private:
 	char ch;
-	std::string token_str;
-	char id[10];
+	std::string store_str;
+	std::string send_str;
 	std::fstream fs;
+	std::pair<unsigned int, unsigned int> pos_ptr;
+	PositionScan pos_scanner;
 public:
 	Symbol sym;
 	Lexical(std::string l_doc);
