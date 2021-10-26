@@ -7,39 +7,69 @@ public:
 
 enum class Symbol
 {
-	nul, //NULL
-
-	ident,
-
-	number,
-	plus,
-	minus,
-	times,
-	slash, /* / */
-	eql,
-	neq, /* # */
-	lss,
-	leq,
-	gtr,
-	geq,
-	lparen,
-	rparen,
-	comma,
-	semicolon,
-	period,
-	becomes,
-
+	//Keyword
+	andsym = 1,
+	arraysym,
 	beginsym,
+	boolsym,
+	callsym,
+	casesym,
+	charsym,
+	constantsym,
+	dimsym,
+	dosym,
+	elsesym,
 	endsym,
+	falsesym,
+	forsym,
 	ifsym,
+	inputsym,
+	integersym,
+	notsym,
+	ofsym,
+	orsym,
+	outputsym,
+	proceduresym,
+	programsym,
+	readsym,
+	realsym,
+	repeatsym,
+	setsym,
+	stopsym,
 	thensym,
-	oddsym,
+	tosym,
+	truesym,
+	untilsym,
+	varsym,
 	whilesym,
 	writesym,
-	readsym,
-	dosym,
-	callsym,
-	constsym,
-	varsym,
-	procsym
+
+	ident,
+	number,
+	charconst,
+
+	lparen, /* ( */
+	rparen, /* ) */
+	astrsk, // * //
+	astrsk_slash, // */ //
+	plus, // + //
+	comma, // , //
+	minus, // - //
+	period, // . //
+	dperiod, // .. //
+	slash, /* / */
+	slash_astrsk, // /* //
+	colon, // : //
+	colon_eql, // := //
+	semicolon, // ; //
+	langle, // < //
+	langle_eql, // <= //
+	langle_rangle, // <> //
+	eql, // = //
+	rangle, // > //
+	rangle_eql, // >= //
+	lbrackt, /* [ */
+	rbrackt, /* ] */
+
+	nul, //NULL
 };

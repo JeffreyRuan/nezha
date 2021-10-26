@@ -2,7 +2,7 @@
 #include "Lexical.h"
 using namespace std;
 
-Lexical::Lexical(std::string l_doc) : ch('\0'), id(""), sym(0)
+Lexical::Lexical(std::string l_doc) : ch('\0'), id(""), sym(Symbol::nul)
 {
 	fs.open(l_doc, ios::in);
 }
@@ -28,10 +28,10 @@ int Lexical::getsym()
 				unsigned short t_id = it.second;
 
 				// A Keyword
-				if (t_id < 36) sym = t_id;
+				if (t_id < 36) sym = Symbol(t_id);
 
 				// An Identifier
-				else if (t_id == 36) sym = ident;
+				else if (t_id == 36) sym = Symbol::ident;
 
 				break;
 			}

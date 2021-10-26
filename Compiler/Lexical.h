@@ -9,7 +9,7 @@ private:
 	char id[10];
 	std::fstream fs;
 public:
-	unsigned short sym;
+	Symbol sym;
 	Lexical(std::string l_doc);
 	int getsym();
 	int getch();
