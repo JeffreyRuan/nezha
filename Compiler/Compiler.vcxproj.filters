@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{e227afa1-fd4a-4200-882d-ea12f41920cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{a7a7242e-930c-4220-a051-13c28c2ca215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lexical">
+      <UniqueIdentifier>{df979a88-127d-4edc-ba9f-6d17152aefc1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="Lexical.cpp">
+      <Filter>Lexical</Filter>
+    </ClCompile>
+    <ClCompile Include="WordHashing.cpp">
+      <Filter>Lexical</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexical.h">
+      <Filter>Lexical</Filter>
+    </ClInclude>
+    <ClInclude Include="WordHashing.h">
+      <Filter>Lexical</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
