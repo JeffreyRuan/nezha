@@ -9,6 +9,7 @@ private:
 public:
 	PositionScan();
 	unsigned int line;
+	unsigned int prevcharacter;
 	unsigned int character;
 	void reportError();
 };

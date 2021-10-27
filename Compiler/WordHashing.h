@@ -3,6 +3,7 @@ class WordHashing
 {
 public:
 	static std::unordered_map<std::string, unsigned short> word;
+	static std::unordered_map<std::string, unsigned short> delimitsym;
 };
 
 enum class Symbol

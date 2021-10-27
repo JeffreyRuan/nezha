@@ -12,7 +12,6 @@ private:
 	std::fstream fs;
 	PositionScan pos_scanner;
 	bool residue;
-	bool overall;
 public:
 	Symbol sym;
 	Lexical(std::string l_doc);

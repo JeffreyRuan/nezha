@@ -2,7 +2,7 @@
 #include "Lexical.h"
 using namespace std;
 
-Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(" "), sym(Symbol::nul), residue(false), overall(false)
+Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(" "), sym(Symbol::nul), residue(false)
 {
 	fs.open(l_doc, ios::in);
 }
@@ -85,6 +85,27 @@ int Lexical::getsym()
 				}
 			}
 		}
+		else if (ch == '\'')
+		{
+			bool rquotematch = false;
+			do
+			{
+				store_str.push_back(ch);
+				getch();
+				if (ch == '\'')
+				{
+					//Is a string
+					rquotematch = true;
+					store_str.push_back(ch);
+					sym = Symbol::charconst;
+				}
+				else if (ch == 10 || ch == 13 || ch == '\0')
+				{
+					//Is Return or End
+					break;
+				}
+			} while (!rquotematch);
+		}
 		else
 		{
 			// Is a Delimiter
@@ -119,15 +140,17 @@ int Lexical::getsym()
 			case '*': store_str.push_back(ch); getch();
 				if (ch == '/') { store_str.push_back(ch); sym = Symbol::astrsk_slash; }
 				else { sym = Symbol::astrsk; give_back = ch; residue = true; } break;
-			default: pos_scanner.reportError(); break;
+			default: sym = Symbol::nul; break;
 			}
 		}
 
 		if (sym != Symbol::nul)
 			PrintHandler::printLexicalDoublet(store_str, sym);
+		else
+			pos_scanner.reportError();
 	}
 
-	if (overall) return 1;
+	if (ch == '\0') return 1;
 	return 0;
 }
 
@@ -143,12 +166,12 @@ int Lexical::getch()
 	if (!fs.get(ch))
 	{
 		ch = '\0';
-		overall = true;
 		pass = 1;
 	}
 	if (ch == 10 || ch == 13)
 	{
 		pos_scanner.line++;
+		pos_scanner.prevcharacter = pos_scanner.character;
 		pos_scanner.character = 0;
 	}
 	else
