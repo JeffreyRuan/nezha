@@ -15,6 +15,7 @@ private:
 public:
 	Symbol sym;
 	Lexical(std::string l_doc);
+	~Lexical();
 	bool isChar(const char& ch);
 	bool isNum(const char& ch);
 	Symbol isKey(std::string store_str);

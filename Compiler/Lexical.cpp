@@ -7,6 +7,11 @@ Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(" "), sym(
 	fs.open(l_doc, ios::in);
 }
 
+Lexical::~Lexical()
+{
+	fs.close();
+}
+
 bool Lexical::isChar(const char& ch)
 {
 	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');

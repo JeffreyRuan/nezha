@@ -1,20 +1,25 @@
 #include "stdafx.h"
 #include "Lexical.h"
 using namespace std;
+constexpr auto NAME_REQUIRED = 0;
 
 int main(int argc, char* argv[])
 {
-	string doc_name = "Code.txt";
+	string doc_name;
+	fstream t_fs;
 
-	/*switch (argc)
-	{
-	case 2: doc_name = argv[1]; break;
-	default: cout << "No document connected." << endl ; return 1; break;
-	}*/
+#if NAME_REQUIRED
+	doc_name = = "Code.txt";
+	string class, name, identity;
+#else
+	if (PrintHandler::printCmdResp(argc, doc_name, argv, t_fs) != 0) return 0;
+
+#endif
 
 	Lexical lexicalAnalyzer(doc_name);
 
 	while (lexicalAnalyzer.getsym() != 1)
 	{
 	}
+	system("pause");
 }
