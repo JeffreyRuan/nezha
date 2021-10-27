@@ -14,8 +14,7 @@ int main(int argc, char* argv[])
 
 	Lexical lexicalAnalyzer(doc_name);
 
-	for (int i = 0; i < 500; i++)
+	while (lexicalAnalyzer.getsym() != 1)
 	{
-		lexicalAnalyzer.getsym();
 	}
 }

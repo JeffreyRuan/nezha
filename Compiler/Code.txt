@@ -1,6 +1,5 @@
-var  A,B,C:integer;
-     X,Y:bool;
-begin  /*  this  is  an  example  */
-  A:=B*C+37;
-  X:=ABC
-end
+begin 
+var 36 
+if(x==y) then:
+w:= 3;
+end 
