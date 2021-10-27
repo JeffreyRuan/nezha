@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PositionScan.h"
-using namespace std;
 
 PositionScan::PositionScan() :line(1), character(0)
 {
@@ -8,5 +7,5 @@ PositionScan::PositionScan() :line(1), character(0)
 
 void PositionScan::reportError()
 {
-	cout << format("line: {}, character: {}; error({}).", line, character, ++errorMangager.error) << endl;
+	PrintHandler::printError(line, character, ++errorMangager.error);
 }

@@ -1,2 +1,6 @@
-329057097270957 03295709723075 30957093750972
-23750392597
+var  A,B,C:integer;
+     X,Y:bool;
+begin  /*  this  is  an  example  */
+  A:=B*C+37;
+  X:=ABC
+end

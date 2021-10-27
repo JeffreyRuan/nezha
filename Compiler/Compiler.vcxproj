@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="PositionScan.cpp" />
+    <ClCompile Include="PrintHandler.cpp" />
     <ClCompile Include="WordHashing.cpp" />
     <ClCompile Include="Lexical.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="Error.h" />
     <ClInclude Include="PositionScan.h" />
+    <ClInclude Include="PrintHandler.h" />
     <ClInclude Include="WordHashing.h" />
     <ClInclude Include="Lexical.h" />
     <ClInclude Include="stdafx.h" />

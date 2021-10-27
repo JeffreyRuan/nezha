@@ -16,6 +16,7 @@ private:
 public:
 	Symbol sym;
 	Lexical(std::string l_doc);
+	bool isChar(const char& ch);
 	int getsym();
 	int getch();
 };

@@ -2,7 +2,7 @@
 class Error
 {
 public:
-	int error;
+	unsigned int error;
 	Error();
 	void reset();
 };

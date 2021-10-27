@@ -7,6 +7,28 @@ Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send_str(" "), 
 	fs.open(l_doc, ios::in);
 }
 
+bool Lexical::isChar(const char& ch)
+{
+	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+}
+
+Symbol isKey(std::string store_str)
+{
+	//Find Keyword
+	auto it = WordHashing::word.find(store_str);
+
+	if (WordHashing::word.find(store_str) != WordHashing::word.end())
+	{
+		return Symbol(it->second);
+	}
+	return Symbol::nul;
+}
+
+bool isNum(const char& ch)
+{
+	return (ch >= '0' && ch <= '9');
+}
+
 int Lexical::getsym()
 {
 	//Reset
@@ -23,63 +45,67 @@ int Lexical::getsym()
 	}
 
 	//Symbol Can Make an Identifier or Keyword
-	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+	if (isChar(ch))
 	{
-		do
+		while (!unusedch)
 		{
 			store_str.push_back(ch);
 
-			//Find Keyword
-			auto it = WordHashing::word.find(store_str);
 			// Is a Keyword
-			if (WordHashing::word.find(store_str) != WordHashing::word.end())
-			{
-				sym = Symbol(it->second);
-			}
+			sym = isKey(store_str);
+			if (sym != Symbol::nul) break;
 
 			// Is an Identifier
 			sym = Symbol::ident;
 
 			getch();
-		} while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'));
+			if (!isChar(ch) && !isNum(ch))
+			{
+				give_back = ch;
+				unusedch = true;
+			}
+		}
 	}
 	else
 	{
 		// Is a Delimiter
 		switch (ch)
 		{
-		case '+': sym = Symbol::plus; break;
-		case '-': sym = Symbol::minus; break;
-		case '=': sym = Symbol::eql; break;
-		case '(': sym = Symbol::lparen; break;
-		case ')': sym = Symbol::rparen; break;
-		case '[': sym = Symbol::lbrackt; break;
-		case ']': sym = Symbol::rbrackt; break;
-		case ';': sym = Symbol::semicolon; break;
-		case ',': sym = Symbol::comma; break;
+		case '+': sym = Symbol::plus; store_str.push_back(ch); break;
+		case '-': sym = Symbol::minus; store_str.push_back(ch); break;
+		case '=': sym = Symbol::eql; store_str.push_back(ch); break;
+		case '(': sym = Symbol::lparen; store_str.push_back(ch); break;
+		case ')': sym = Symbol::rparen; store_str.push_back(ch); break;
+		case '[': sym = Symbol::lbrackt; store_str.push_back(ch); break;
+		case ']': sym = Symbol::rbrackt; store_str.push_back(ch); break;
+		case ';': sym = Symbol::semicolon; store_str.push_back(ch); break;
+		case ',': sym = Symbol::comma; store_str.push_back(ch); break;
 
-		case '/': getch();
-			if (ch == '*') sym = Symbol::slash_astrsk;
+		case '/': store_str.push_back(ch); getch();
+			if (ch == '*') { store_str.push_back(ch); sym = Symbol::slash_astrsk; }
 			else { sym = Symbol::slash; give_back = ch; unusedch = true; } break;
-		case '.': getch();
-			if (ch == '.') sym = Symbol::dperiod;
+		case '.': store_str.push_back(ch); getch();
+			if (ch == '.') { store_str.push_back(ch); sym = Symbol::dperiod; }
 			else { sym = Symbol::period; give_back = ch; unusedch = true; } break;
-		case '<': getch();
-			if (ch == '>') sym = Symbol::langle_rangle;
-			else if (ch == '=') sym = Symbol::langle_eql;
+		case '<': store_str.push_back(ch); getch();
+			if (ch == '>') { store_str.push_back(ch); sym = Symbol::langle_rangle; }
+			else if (ch == '=') { store_str.push_back(ch); sym = Symbol::langle_eql; }
 			else { sym = Symbol::langle; give_back = ch; unusedch = true; } break;
-		case '>': getch();
-			if (ch == '=') sym = Symbol::rangle_eql;
+		case '>': store_str.push_back(ch); getch();
+			if (ch == '=') { store_str.push_back(ch); sym = Symbol::rangle_eql; }
 			else { sym = Symbol::rangle; give_back = ch; unusedch = true; } break;
-		case ':': getch();
-			if (ch == '=') sym = Symbol::colon_eql;
+		case ':': store_str.push_back(ch); getch();
+			if (ch == '=') { store_str.push_back(ch); sym = Symbol::colon_eql; }
 			else { sym = Symbol::colon; give_back = ch; unusedch = true; } break;
-		case '*': getch();
-			if (ch == '/') sym = Symbol::astrsk_slash;
+		case '*': store_str.push_back(ch); getch();
+			if (ch == '/') { store_str.push_back(ch); sym = Symbol::astrsk_slash; }
 			else { sym = Symbol::astrsk; give_back = ch; unusedch = true; } break;
 		default: pos_scanner.reportError(); break;
 		}
 	}
+
+	if (sym != Symbol::nul)
+		PrintHandler::printLexicalDoublet(store_str, sym);
 
 	return 0;
 }

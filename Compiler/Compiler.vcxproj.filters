@@ -16,6 +16,9 @@
     <Filter Include="Error">
       <UniqueIdentifier>{6c49e977-de15-44db-b913-42a2ee98f88a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PrintHandler">
+      <UniqueIdentifier>{ed773fc3-41bd-4cd9-b482-bdd573170750}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,9 @@
     <ClCompile Include="PositionScan.cpp">
       <Filter>PositionScan</Filter>
     </ClCompile>
+    <ClCompile Include="PrintHandler.cpp">
+      <Filter>PrintHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="PositionScan.h">
       <Filter>PositionScan</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintHandler.h">
+      <Filter>PrintHandler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

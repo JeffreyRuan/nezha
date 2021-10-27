@@ -1,5 +1,7 @@
 #pragma once
 #include "Error.h"
+#include "PrintHandler.h"
+
 class PositionScan
 {
 private:
