@@ -73,4 +73,5 @@ enum class Symbol
 	rbrackt, /* ] */
 
 	nul, //NULL
+	comment //Comment
 };

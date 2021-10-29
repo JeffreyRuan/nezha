@@ -39,6 +39,7 @@ int Lexical::getsym()
 	//Reset
 	store_str.clear();
 	sym = Symbol::nul;
+	unsigned int errortype = 0;
 
 	//Get First Character
 	getch();
@@ -60,10 +61,11 @@ int Lexical::getsym()
 
 				// Is a Keyword
 				sym = isKey(store_str);
-				if (sym != Symbol::nul) break;
-
-				// Is an Identifier
-				sym = Symbol::ident;
+				if (sym == Symbol::nul)
+				{
+					// Is an Identifier
+					sym = Symbol::ident;
+				}
 
 				getch();
 				if (!isChar(ch) && !isNum(ch))
@@ -85,6 +87,11 @@ int Lexical::getsym()
 				getch();
 				if (!isNum(ch))
 				{
+					if (isChar(ch))
+					{
+						sym = Symbol::nul;
+						errortype = 1;
+					}
 					give_back = ch;
 					residue = true;
 				}
@@ -107,13 +114,61 @@ int Lexical::getsym()
 				else if (ch == 10 || ch == 13 || ch == '\0')
 				{
 					//Is Return or End
+					errortype = 2;
 					break;
 				}
 			} while (!rquotematch);
 		}
+
+		else if (ch == '/')
+		{
+			store_str.push_back(ch);
+			getch();
+			if (ch == '*')
+			{
+				//Open Comment
+				bool rcommentmatch = false;
+				do
+				{
+					store_str.push_back(ch);
+					getch();
+					if (ch == '*')
+					{
+						store_str.push_back(ch);
+						getch();
+						if (ch == '/')
+						{
+							//Comment Closed
+							store_str.push_back(ch);
+							rcommentmatch = true;
+							sym = Symbol::comment;
+						}
+						else if (ch == 10 || ch == 13 || ch == '\0')
+						{
+							//Is Return or End
+							errortype = 3;
+							break;
+						}
+					}
+					else if (ch == 10 || ch == 13 || ch == '\0')
+					{
+						//Is Return or End
+						errortype = 3;
+						break;
+					}
+				} while (!rcommentmatch);
+			}
+			else
+			{
+				sym = Symbol::slash;
+				give_back = ch;
+				residue = true;
+			}
+		}
+
 		else
 		{
-			// Is a Delimiter
+			// Is a Normal Delimiter
 			switch (ch)
 			{
 			case '+': sym = Symbol::plus; store_str.push_back(ch); break;
@@ -126,9 +181,6 @@ int Lexical::getsym()
 			case ';': sym = Symbol::semicolon; store_str.push_back(ch); break;
 			case ',': sym = Symbol::comma; store_str.push_back(ch); break;
 
-			case '/': store_str.push_back(ch); getch();
-				if (ch == '*') { store_str.push_back(ch); sym = Symbol::slash_astrsk; }
-				else { sym = Symbol::slash; give_back = ch; residue = true; } break;
 			case '.': store_str.push_back(ch); getch();
 				if (ch == '.') { store_str.push_back(ch); sym = Symbol::dperiod; }
 				else { sym = Symbol::period; give_back = ch; residue = true; } break;
@@ -145,14 +197,17 @@ int Lexical::getsym()
 			case '*': store_str.push_back(ch); getch();
 				if (ch == '/') { store_str.push_back(ch); sym = Symbol::astrsk_slash; }
 				else { sym = Symbol::astrsk; give_back = ch; residue = true; } break;
-			default: sym = Symbol::nul; break;
+			default: store_str.push_back(ch); sym = Symbol::nul; errortype = 4; break;
 			}
 		}
 
-		if (sym != Symbol::nul)
+		if (sym == Symbol::comment)
+		{
+		}
+		else if (sym != Symbol::nul)
 			PrintHandler::printLexicalDoublet(store_str, sym);
 		else
-			pos_scanner.reportError();
+			pos_scanner.reportError(errortype, store_str);
 	}
 
 	if (ch == '\0') return 1;

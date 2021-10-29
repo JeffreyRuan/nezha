@@ -11,5 +11,5 @@ public:
 	unsigned int line;
 	unsigned int prevcharacter;
 	unsigned int character;
-	void reportError();
+	void reportError(const unsigned int& errortype, const std::string& store);
 };

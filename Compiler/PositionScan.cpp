@@ -5,7 +5,17 @@ PositionScan::PositionScan() :line(1), character(0), prevcharacter(0)
 {
 }
 
-void PositionScan::reportError()
+void PositionScan::reportError(const unsigned int& errortype, const std::string& store)
 {
-	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error);
+	std::string WarningContext;
+	switch (errortype)
+	{
+	case 0: WarningContext = ""; break;
+	case 1: WarningContext = "expected an identifier"; break;
+	case 2: WarningContext = "missing closing quote"; break;
+	case 3: WarningContext = "comment unclosed at end of file"; break;
+	case 4: WarningContext = std::format("identifier \"{}\" is undefined", store); break;
+	default: WarningContext = ""; break;
+	}
+	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error, WarningContext);
 }

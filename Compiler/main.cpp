@@ -10,7 +10,8 @@ int main(int argc, char* argv[])
 
 #if NAME_REQUIRED
 	doc_name = "Code.txt";
-	string classname, studentname, identity;
+	wstring classname, studentname, identity;
+	//wcin >> classname >> studentname >> identity;
 #else
 	if (PrintHandler::printCmdResp(argc, doc_name, argv, t_fs) != 0) return 0;
 #endif

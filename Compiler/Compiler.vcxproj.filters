@@ -19,6 +19,9 @@
     <Filter Include="PrintHandler">
       <UniqueIdentifier>{ed773fc3-41bd-4cd9-b482-bdd573170750}</UniqueIdentifier>
     </Filter>
+    <Filter Include="VectorForIdentifier">
+      <UniqueIdentifier>{c12f81a1-1e87-4cc6-8142-3a6df9de5551}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
