@@ -77,12 +77,16 @@ int Lexical::getsym()
 		}
 		else if (isNum(ch))
 		{
+			bool valid = true;
 			while (!residue)
 			{
 				store_str.push_back(ch);
 
-				//Is an Integer
-				sym = Symbol::number;
+				if (valid)
+				{
+					//Is an Integer
+					sym = Symbol::number;
+				}
 
 				getch();
 				if (!isNum(ch))
@@ -91,9 +95,13 @@ int Lexical::getsym()
 					{
 						sym = Symbol::nul;
 						errortype = 1;
+						valid = false;
 					}
-					give_back = ch;
-					residue = true;
+					else
+					{
+						give_back = ch;
+						residue = true;
+					}
 				}
 			}
 		}

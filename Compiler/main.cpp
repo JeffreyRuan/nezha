@@ -7,12 +7,12 @@ int main(int argc, char* argv[])
 	string doc_name;
 	fstream t_fs;
 
-#if NAME_REQUIRED
+#if ARG_REQUIRED
+	if (PrintHandler::printCmdResp(argc, doc_name, argv, t_fs) != 0) return 0;
+#else
 	doc_name = "Code.txt";
 	wstring classname, studentname, identity;
 	//wcin >> classname >> studentname >> identity;
-#else
-	if (PrintHandler::printCmdResp(argc, doc_name, argv, t_fs) != 0) return 0;
 #endif
 
 	Lexical lexicalAnalyzer(doc_name);

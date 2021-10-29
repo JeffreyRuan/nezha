@@ -1,7 +1,7 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN
-#define NAME_REQUIRED 1;
-#define ABNORMAL_DOUBLET 1;
+#define ARG_REQUIRED 0;
+#define ABNORMAL_DOUBLET 0;
 #include <windows.h>
 #include <iostream>
 #include <fstream>
