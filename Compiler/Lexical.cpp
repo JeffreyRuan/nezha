@@ -22,7 +22,7 @@ Symbol Lexical::isKey(std::string store_str)
 	//Find Keyword
 	auto it = WordHashing::word.find(store_str);
 
-	if (WordHashing::word.find(store_str) != WordHashing::word.end())
+	if (it != WordHashing::word.end())
 	{
 		return Symbol(it->second);
 	}

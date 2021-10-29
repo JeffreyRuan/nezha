@@ -3,6 +3,8 @@
 
 using namespace std;
 
+unsigned int PrintHandler::store_cnt = 0;
+
 void PrintHandler::printError(unsigned int line, unsigned int character, unsigned int prevcharacter, unsigned int error_time, std::string WarningContext)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -20,8 +22,30 @@ void PrintHandler::printError(unsigned int line, unsigned int character, unsigne
 
 void PrintHandler::printLexicalDoublet(const std::string& word, const Symbol& sym)
 {
+#if ABNORMAL_DOUBLET
+	if (sym == Symbol::number || sym == Symbol::ident || sym == Symbol::charconst)
+	{
+		auto it = Store::storemap.find(word);
+		if (it != Store::storemap.end())
+		{
+			//Word Found
+			cout << format("< {}, {} >", static_cast<unsigned int>(sym), it->second) << endl;
+		}
+		else
+		{
+			Store::storemap.emplace(std::pair<std::string, unsigned int>(word, ++store_cnt));
+			cout << format("< {}, {} >", static_cast<unsigned int>(sym), store_cnt) << endl;
+		}
+	}
+	else
+	{
+		cout << format("< {}, {} >", static_cast<unsigned int>(sym), "-") << endl;
+	}
+
+#else
 	cout << format("< {}, {} >", word, static_cast<unsigned int>(sym)) << endl;
-}
+#endif
+	}
 
 int PrintHandler::printCmdResp(const int& argc, string& doc_name, char**& argv, fstream& t_fs)
 {

@@ -19,8 +19,8 @@
     <Filter Include="PrintHandler">
       <UniqueIdentifier>{ed773fc3-41bd-4cd9-b482-bdd573170750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="VectorForIdentifier">
-      <UniqueIdentifier>{c12f81a1-1e87-4cc6-8142-3a6df9de5551}</UniqueIdentifier>
+    <Filter Include="Store">
+      <UniqueIdentifier>{7312bcf2-c5f0-4f48-9e4e-55a3add21300}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +45,9 @@
     <ClCompile Include="PrintHandler.cpp">
       <Filter>PrintHandler</Filter>
     </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>Store</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="PrintHandler.h">
       <Filter>PrintHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>Store</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

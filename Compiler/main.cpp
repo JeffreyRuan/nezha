@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Lexical.h"
 using namespace std;
-#define NAME_REQUIRED 1;
 
 int main(int argc, char* argv[])
 {
