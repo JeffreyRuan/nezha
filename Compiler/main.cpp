@@ -11,8 +11,6 @@ int main(int argc, char* argv[])
 	if (PrintHandler::printCmdResp(argc, doc_name, argv, t_fs) != 0) return 0;
 #else
 	doc_name = "Code.txt";
-	wstring classname, studentname, identity;
-	//wcin >> classname >> studentname >> identity;
 #endif
 
 	Lexical lexicalAnalyzer(doc_name);
