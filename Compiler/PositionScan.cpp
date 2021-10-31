@@ -11,7 +11,7 @@ void PositionScan::reportError(const unsigned int& errortype, const std::string&
 	switch (errortype)
 	{
 	case 0: WarningContext = ""; break;
-	case 1: WarningContext = "expected an identifier"; break;
+	case 1: WarningContext = format("\"{}\" is not an identifier", store); break;
 	case 2: WarningContext = "missing closing quote"; break;
 	case 3: WarningContext = "comment unclosed at end of file"; break;
 	case 4: WarningContext = "unrecognized token"; break;

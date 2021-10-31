@@ -45,7 +45,7 @@ void PrintHandler::printLexicalDoublet(const std::string& word, const Symbol& sy
 #else
 	cout << format("< {}, {} >", word, static_cast<unsigned int>(sym)) << endl;
 #endif
-	}
+}
 
 int PrintHandler::printCmdResp(const int& argc, string& doc_name, char**& argv, fstream& t_fs)
 {
