@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="PositionScan.cpp" />
     <ClCompile Include="PrintHandler.cpp" />
     <ClCompile Include="Store.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Parsing.h" />
     <ClInclude Include="PositionScan.h" />
     <ClInclude Include="PrintHandler.h" />
     <ClInclude Include="Store.h" />

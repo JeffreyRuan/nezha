@@ -22,6 +22,9 @@
     <Filter Include="Store">
       <UniqueIdentifier>{7312bcf2-c5f0-4f48-9e4e-55a3add21300}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Parsing">
+      <UniqueIdentifier>{d7d612ed-2e63-437c-9549-e781992e7472}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="Store.cpp">
       <Filter>Store</Filter>
     </ClCompile>
+    <ClCompile Include="Parsing.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Store.h">
       <Filter>Store</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing.h">
+      <Filter>Parsing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
