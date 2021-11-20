@@ -54,6 +54,12 @@
     <ClCompile Include="Parsing.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
+    <ClCompile Include="Trace.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="LR_Table.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -78,6 +84,12 @@
       <Filter>Store</Filter>
     </ClInclude>
     <ClInclude Include="Parsing.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Trace.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="LR_Table.h">
       <Filter>Parsing</Filter>
     </ClInclude>
   </ItemGroup>
