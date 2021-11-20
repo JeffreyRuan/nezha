@@ -1,6 +1,6 @@
 website: https://fiona.dmcs.pl/tk/jsmachines.sourceforge.net/machines/lalr1.html
 
-P -> program f ; I M .
+P -> program f ; Q M .
 T -> integer
 T -> bool	
 T -> char	
@@ -50,8 +50,8 @@ REPEAT_S -> repeat S until B
 M -> begin L end
 L -> S ; L
 L -> S
-I -> var D
-I -> ''
+Q -> var D
+Q -> ''
 D -> O : T ; D
 D -> O : T ;
 O -> f , O
