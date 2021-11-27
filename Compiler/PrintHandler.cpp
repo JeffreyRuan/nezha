@@ -20,7 +20,7 @@ void PrintHandler::printError(unsigned int line, unsigned int character, unsigne
 
 void PrintHandler::printLexicalDoublet(const std::string& word, const std::pair<int, int>& send)
 {
-#if DOUBLET_ONLY_NUM
+#if DOUBLET_WITH_STORED_POS
 	cout << format("lexing... < {}, {} >\n", send.first, send.second) << endl;
 #else
 	cout << format("lexing... < {}, {} >\n", word, send.first) << endl;
@@ -56,6 +56,10 @@ void PrintHandler::printParsingAction(const std::string& token, const TraceElem&
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 6);
-	cout << format("Token: {}, Top: {} <{},{}> {}, ACTION: {}\n", token, e.status, e.doublet.first, e.doublet.second, e.label, action);
+#if DOUBLET_WITH_STORED_POS
+	cout << format("Token: {} -> ACTION: {} -> Top: <{},{}> {} {}\n", token, action, e.doublet.first, e.doublet.second, e.label, e.status);
+#else
+	cout << format("Token: {} -> ACTION: {} -> Top: {} {}\n", token, action, e.label, e.status);
+#endif
 	SetConsoleTextAttribute(hConsole, 7);
 }

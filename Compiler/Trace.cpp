@@ -40,7 +40,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	}
 	else if (to_do.front() == 'e')
 	{
-		pos_scanner.reportError(5, identDoubletToString(l_buffer->front()));
+		pos_scanner.reportError(5);
 		//Panic-mode recovery
 	}
 	else if (to_do == "acc")

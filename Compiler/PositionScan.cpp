@@ -21,7 +21,7 @@ void PositionScan::reportError(const unsigned int& errortype, const std::string&
 	case 2: WarningContext = "missing closing quote"; break;
 	case 3: WarningContext = "comment unclosed at end of file"; break;
 	case 4: WarningContext = "unrecognized token"; break;
-	case 5: WarningContext = format("unrecognized syntax at \"{}\"", store); break;
+	case 5: WarningContext = "unrecognized syntax"; break;
 	default: WarningContext = ""; break;
 	}
 	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error, WarningContext);
