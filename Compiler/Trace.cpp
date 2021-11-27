@@ -51,7 +51,29 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	else
 	{
 		int i_to_do = std::atoi(to_do.c_str());
-		TraceElem t_e = { i_to_do, l_buffer->front(), identDoubletToString(l_buffer->front()) };
+		TraceElem t_e;
+		int& wordnum = l_buffer->front().first;
+		//identifier, number or string
+		if (wordnum == 36 || wordnum == 37 || wordnum == 38)
+		{
+			t_e = { i_to_do, l_buffer->front(), identDoubletToString(l_buffer->front()) };
+		}
+		//word is "false"
+		else if (wordnum == 13)
+		{
+			t_e = { i_to_do, l_buffer->front(), "false" };
+		}
+		//word is "true"
+		else if (wordnum == 31)
+		{
+			t_e = { i_to_do, l_buffer->front(), "true" };
+		}
+		//other keywords
+		else
+		{
+			t_e = { i_to_do, l_buffer->front(), SymbolList::words[l_buffer->front().first] };
+		}
+
 		traceStack.push(t_e);
 		l_buffer->pop();
 	}
