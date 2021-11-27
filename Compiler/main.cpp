@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Lexical.h"
+#include "Parsing.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -14,9 +14,25 @@ int main(int argc, char* argv[])
 #endif
 
 	Lexical lexicalAnalyzer(doc_name);
+	Parsing syntaxAnalyzer;
+	bool lexover = false;
+	bool keep_push = true;
 
-	while (lexicalAnalyzer.getsym() != 1)
+	while (!lexover || !syntaxAnalyzer.buffer.empty())
 	{
+		if (!lexover)
+		{
+			if (lexicalAnalyzer.getsym() == 1)
+			{
+				lexover = true;
+			}
+		}
+		syntaxAnalyzer.processToken(lexicalAnalyzer, keep_push);
+		if (lexover)
+		{
+			keep_push = false;
+		}
 	}
+
 	system("pause");
 }

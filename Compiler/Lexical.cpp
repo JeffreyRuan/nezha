@@ -2,7 +2,9 @@
 #include "Lexical.h"
 using namespace std;
 
-Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(" "), sym(Symbol::nul), residue(false)
+unsigned int Lexical::store_cnt = 0;
+
+Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(61, -1), sym(Symbol::nul), residue(false)
 {
 	fs.open(l_doc, ios::in);
 }
@@ -213,13 +215,38 @@ int Lexical::getsym()
 		{
 		}
 		else if (sym != Symbol::nul)
-			PrintHandler::printLexicalDoublet(store_str, sym);
+		{
+			if (sym == Symbol::number || sym == Symbol::ident || sym == Symbol::charconst)
+			{
+				auto it = Store::storemap.find(store_str);
+				if (it != Store::storemap.end())
+				{
+					//Word Found
+					send = std::pair<int, int>(static_cast<int>(sym), it->second);
+				}
+				else
+				{
+					Store::storemap.emplace(std::pair<std::string, unsigned int>(store_str, ++store_cnt));
+					send = std::pair<int, int>(static_cast<int>(sym), store_cnt);
+				}
+			}
+			else
+			{
+				send = std::pair<int, int>(static_cast<int>(sym), -1);
+			}
+			PrintHandler::printLexicalDoublet(store_str, send);
+		}
 		else
 			pos_scanner.reportError(errortype, store_str);
+		return 0;
 	}
 
-	if (ch == '\0') return 1;
-	return 0;
+	if (ch == '\0')
+	{
+		send = std::pair<int, int>(static_cast<int>(Symbol::tail), -1);
+		PrintHandler::printLexicalDoublet("$", send);
+		return 1;
+	}
 }
 
 int Lexical::getch()

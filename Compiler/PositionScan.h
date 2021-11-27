@@ -8,8 +8,8 @@ private:
 	Error errorMangager;
 public:
 	PositionScan();
-	unsigned int line;
-	unsigned int prevcharacter;
-	unsigned int character;
+	static unsigned int line;
+	static unsigned int prevcharacter;
+	static unsigned int character;
 	void reportError(const unsigned int& errortype, const std::string& store);
 };

@@ -152,11 +152,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Error.cpp" />
-    <ClCompile Include="LR_Table.cpp" />
     <ClCompile Include="Parsing.cpp" />
+    <ClCompile Include="LR_Table.cpp" />
     <ClCompile Include="PositionScan.cpp" />
     <ClCompile Include="PrintHandler.cpp" />
+    <ClCompile Include="ReduceTable.cpp" />
     <ClCompile Include="Store.cpp" />
+    <ClCompile Include="SymbolList.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="WordHashing.cpp" />
     <ClCompile Include="Lexical.cpp" />
@@ -170,15 +172,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />
-    <ClInclude Include="LR_Table.h" />
+    <ClInclude Include="Macro.h" />
     <ClInclude Include="Parsing.h" />
+    <ClInclude Include="LR_Table.h" />
     <ClInclude Include="PositionScan.h" />
     <ClInclude Include="PrintHandler.h" />
+    <ClInclude Include="ReduceTable.h" />
     <ClInclude Include="Store.h" />
+    <ClInclude Include="SymbolList.h" />
     <ClInclude Include="Trace.h" />
+    <ClInclude Include="TraceElem.h" />
     <ClInclude Include="WordHashing.h" />
     <ClInclude Include="Lexical.h" />
     <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Code.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

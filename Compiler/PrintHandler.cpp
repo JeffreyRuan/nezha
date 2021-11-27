@@ -3,8 +3,6 @@
 
 using namespace std;
 
-unsigned int PrintHandler::store_cnt = 0;
-
 void PrintHandler::printError(unsigned int line, unsigned int character, unsigned int prevcharacter, unsigned int error_time, std::string WarningContext)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -20,30 +18,12 @@ void PrintHandler::printError(unsigned int line, unsigned int character, unsigne
 	SetConsoleTextAttribute(hConsole, 7);
 }
 
-void PrintHandler::printLexicalDoublet(const std::string& word, const Symbol& sym)
+void PrintHandler::printLexicalDoublet(const std::string& word, const std::pair<int, int>& send)
 {
-#if ABNORMAL_DOUBLET
-	if (sym == Symbol::number || sym == Symbol::ident || sym == Symbol::charconst)
-	{
-		auto it = Store::storemap.find(word);
-		if (it != Store::storemap.end())
-		{
-			//Word Found
-			cout << format("< {}, {} >", static_cast<unsigned int>(sym), it->second) << endl;
-		}
-		else
-		{
-			Store::storemap.emplace(std::pair<std::string, unsigned int>(word, ++store_cnt));
-			cout << format("< {}, {} >", static_cast<unsigned int>(sym), store_cnt) << endl;
-		}
-	}
-	else
-	{
-		cout << format("< {}, {} >", static_cast<unsigned int>(sym), "-") << endl;
-	}
-
+#if DOUBLET_ONLY_NUM
+	cout << format("lexing... < {}, {} >\n", send.first, send.second) << endl;
 #else
-	cout << format("< {}, {} >", word, static_cast<unsigned int>(sym)) << endl;
+	cout << format("lexing... < {}, {} >\n", word, send.first) << endl;
 #endif
 }
 
@@ -65,4 +45,17 @@ int PrintHandler::printCmdResp(const int& argc, string& doc_name, char**& argv, 
 		cout << format("\'{}\' is not a nezha command.", sum) << endl; return 3; break;
 	}
 	return 0;
+}
+
+void PrintHandler::printParsingSuccessful()
+{
+	cout << endl << "Parsing completed and successful" << endl;
+}
+
+void PrintHandler::printParsingAction(const std::string& token, const TraceElem& e, const std::string& action)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 6);
+	cout << format("Token: {}, Top: {} <{},{}> {}, ACTION: {}\n", token, e.status, e.doublet.first, e.doublet.second, e.label, action);
+	SetConsoleTextAttribute(hConsole, 7);
 }

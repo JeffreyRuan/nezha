@@ -51,13 +51,19 @@
     <ClCompile Include="Store.cpp">
       <Filter>Store</Filter>
     </ClCompile>
-    <ClCompile Include="Parsing.cpp">
-      <Filter>Parsing</Filter>
-    </ClCompile>
     <ClCompile Include="Trace.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
     <ClCompile Include="LR_Table.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="ReduceTable.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="SymbolList.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,14 +89,29 @@
     <ClInclude Include="Store.h">
       <Filter>Store</Filter>
     </ClInclude>
-    <ClInclude Include="Parsing.h">
-      <Filter>Parsing</Filter>
-    </ClInclude>
     <ClInclude Include="Trace.h">
       <Filter>Parsing</Filter>
     </ClInclude>
     <ClInclude Include="LR_Table.h">
       <Filter>Parsing</Filter>
     </ClInclude>
+    <ClInclude Include="Parsing.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="ReduceTable.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="SymbolList.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceElem.h">
+      <Filter>Parsing</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Code.txt" />
   </ItemGroup>
 </Project>
