@@ -153,10 +153,8 @@
   <ItemGroup>
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Parsing.cpp" />
-    <ClCompile Include="LR_Table.cpp" />
     <ClCompile Include="PositionScan.cpp" />
     <ClCompile Include="PrintHandler.cpp" />
-    <ClCompile Include="ReduceTable.cpp" />
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="SymbolList.cpp" />
     <ClCompile Include="Trace.cpp" />
@@ -169,6 +167,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="LR_Table.cpp" />
+    <ClCompile Include="ReduceTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />

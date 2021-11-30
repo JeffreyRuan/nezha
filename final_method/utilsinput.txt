@@ -1,9 +1,6 @@
 website: https://fiona.dmcs.pl/tk/jsmachines.sourceforge.net/machines/lalr1.html
 
 P -> program f ; Q M .
-T -> integer
-T -> bool	
-T -> char	
 X -> A
 X -> B
 X -> C
@@ -38,21 +35,25 @@ R -> =
 C -> t
 C -> f
 S -> E
-S -> IF_S
-S -> WHILE_S
-S -> REPEAT_S
 S -> M
 E -> f := X
-IF_S -> if B then S
-IF_S -> if B then S else S
-WHILE_S -> while B do S
-REPEAT_S -> repeat S until B
+S -> IF_D S
+S -> IF_ELSE_D S
+S -> WHILE_D S
+IF_D -> if B then
+IF_ELSE_D -> IF_D S else
+WHILE_D -> WHILE_N E do
+WHILE_N -> while
+S -> repeat S until B
 M -> begin L end
-L -> S ; L
+L_D -> L ;
+L -> L_D S
 L -> S
 Q -> var D
 Q -> ''
-D -> O : T ; D
-D -> O : T ;
+D -> O ; D
+D -> O ;
 O -> f , O
-O -> f
+O -> f : integer
+O -> f : bool
+O -> f : char

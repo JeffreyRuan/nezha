@@ -54,16 +54,16 @@
     <ClCompile Include="Trace.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="LR_Table.cpp">
-      <Filter>Parsing</Filter>
-    </ClCompile>
     <ClCompile Include="Parsing.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="ReduceTable.cpp">
+    <ClCompile Include="SymbolList.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="SymbolList.cpp">
+    <ClCompile Include="LR_Table.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="ReduceTable.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
   </ItemGroup>
