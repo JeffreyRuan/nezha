@@ -63,3 +63,16 @@ void PrintHandler::printParsingAction(const std::string& token, const TraceElem&
 #endif
 	SetConsoleTextAttribute(hConsole, 7);
 }
+
+void PrintHandler::printIntermediates(std::queue<FTuple>& q)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 5);
+	while (!q.empty())
+	{
+		FTuple t_tpl = q.front();
+		cout << format("< {}, {}, {}, {} >", t_tpl.op, t_tpl.arg1, t_tpl.arg2, t_tpl.result) << endl;
+		q.pop();
+	}
+	SetConsoleTextAttribute(hConsole, 7);
+}

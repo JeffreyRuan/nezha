@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="Intermediate.cpp" />
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="PositionScan.cpp" />
     <ClCompile Include="PrintHandler.cpp" />
-    <ClCompile Include="Store.cpp" />
-    <ClCompile Include="SymbolList.cpp" />
+    <ClCompile Include="LexStore.cpp" />
+    <ClCompile Include="ValidToken.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="WordHashing.cpp" />
     <ClCompile Include="Lexical.cpp" />
@@ -171,15 +173,18 @@
     <ClCompile Include="ReduceTable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attribute.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="FTuple.h" />
+    <ClInclude Include="Intermediate.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="Parsing.h" />
     <ClInclude Include="LR_Table.h" />
     <ClInclude Include="PositionScan.h" />
     <ClInclude Include="PrintHandler.h" />
     <ClInclude Include="ReduceTable.h" />
-    <ClInclude Include="Store.h" />
-    <ClInclude Include="SymbolList.h" />
+    <ClInclude Include="LexStore.h" />
+    <ClInclude Include="ValidToken.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="TraceElem.h" />
     <ClInclude Include="WordHashing.h" />

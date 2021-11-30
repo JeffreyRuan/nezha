@@ -1,5 +1,5 @@
 #pragma once
-class SymbolList
+class ValidToken
 {
 private:
 	static std::vector<std::string>words;

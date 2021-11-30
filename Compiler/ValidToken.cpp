@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "SymbolList.h"
+#include "ValidToken.h"
 
-std::vector<std::string> SymbolList::words =
+std::vector<std::string> ValidToken::words =
 {
 	"zero-kept",
 	"and",

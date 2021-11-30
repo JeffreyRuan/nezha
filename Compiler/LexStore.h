@@ -1,5 +1,5 @@
 #pragma once
-class Store
+class LexStore
 {
 private:
 	friend class Trace;

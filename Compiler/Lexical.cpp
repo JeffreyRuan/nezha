@@ -218,15 +218,15 @@ int Lexical::getsym()
 		{
 			if (sym == Symbol::number || sym == Symbol::ident || sym == Symbol::charconst)
 			{
-				auto it = Store::storemap.find(store_str);
-				if (it != Store::storemap.end())
+				auto it = LexStore::storemap.find(store_str);
+				if (it != LexStore::storemap.end())
 				{
 					//Word Found
 					send = std::pair<int, int>(static_cast<int>(sym), it->second);
 				}
 				else
 				{
-					Store::storemap.emplace(std::pair<std::string, unsigned int>(store_str, ++store_cnt));
+					LexStore::storemap.emplace(std::pair<std::string, unsigned int>(store_str, ++store_cnt));
 					send = std::pair<int, int>(static_cast<int>(sym), store_cnt);
 				}
 			}

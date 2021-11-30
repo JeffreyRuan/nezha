@@ -1,7 +1,8 @@
 #pragma once
 #include "WordHashing.h"
-#include "Store.h"
+#include "LexStore.h"
 #include "TraceElem.h"
+#include "FTuple.h"
 
 class PrintHandler
 {
@@ -11,4 +12,5 @@ public:
 	static int printCmdResp(const int& argc, std::string& doc_name, char**& argv, std::fstream& t_fs);
 	static void printParsingSuccessful();
 	static void printParsingAction(const std::string& token, const TraceElem& e, const std::string& action);
+	static void printIntermediates(std::queue<FTuple>& q);
 };

@@ -1,10 +1,11 @@
 #pragma once
 #include "LR_Table.h"
 #include "PositionScan.h"
-#include "SymbolList.h"
+#include "ValidToken.h"
 #include "ReduceTable.h"
-#include "Store.h"
+#include "LexStore.h"
 #include "TraceElem.h"
+#include "Intermediate.h"
 
 class Trace
 {

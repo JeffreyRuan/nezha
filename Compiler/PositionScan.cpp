@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "PositionScan.h"
 
+Error PositionScan::errorMangager;
+
 PositionScan::PositionScan()
 {
 }
@@ -11,9 +13,24 @@ unsigned int PositionScan::prevcharacter = 0;
 
 unsigned int PositionScan::character = 0;
 
-void PositionScan::reportError(const unsigned int& errortype, const std::string& store)
+void PositionScan::reportError(const unsigned int& errortype, const std::string& store /*= ""*/)
+{
+	std::string WarningContext = warningVariant(errortype, store);
+
+	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error, WarningContext);
+}
+
+void PositionScan::reportError(const unsigned int& errortype, unsigned int line, unsigned int prevcharacter, unsigned int character, const std::string& store /*= ""*/)
+{
+	std::string WarningContext = warningVariant(errortype, store);
+
+	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error, WarningContext);
+}
+
+std::string PositionScan::warningVariant(const int& errortype, const std::string& store)
 {
 	std::string WarningContext;
+
 	switch (errortype)
 	{
 	case 0: WarningContext = ""; break;
@@ -25,5 +42,6 @@ void PositionScan::reportError(const unsigned int& errortype, const std::string&
 	case 6: WarningContext = "semantic error"; break;
 	default: WarningContext = ""; break;
 	}
-	PrintHandler::printError(line, character, prevcharacter, ++errorMangager.error, WarningContext);
+
+	return WarningContext;
 }

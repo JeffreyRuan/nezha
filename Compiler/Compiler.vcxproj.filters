@@ -19,11 +19,11 @@
     <Filter Include="PrintHandler">
       <UniqueIdentifier>{ed773fc3-41bd-4cd9-b482-bdd573170750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Store">
-      <UniqueIdentifier>{7312bcf2-c5f0-4f48-9e4e-55a3add21300}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Parsing">
       <UniqueIdentifier>{d7d612ed-2e63-437c-9549-e781992e7472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Intermediate">
+      <UniqueIdentifier>{95848b43-db30-484d-8b76-b2b303bb61f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,16 +48,13 @@
     <ClCompile Include="PrintHandler.cpp">
       <Filter>PrintHandler</Filter>
     </ClCompile>
-    <ClCompile Include="Store.cpp">
-      <Filter>Store</Filter>
-    </ClCompile>
     <ClCompile Include="Trace.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
     <ClCompile Include="Parsing.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="SymbolList.cpp">
+    <ClCompile Include="ValidToken.cpp">
       <Filter>Parsing</Filter>
     </ClCompile>
     <ClCompile Include="LR_Table.cpp">
@@ -65,6 +62,15 @@
     </ClCompile>
     <ClCompile Include="ReduceTable.cpp">
       <Filter>Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="LexStore.cpp">
+      <Filter>Lexical</Filter>
+    </ClCompile>
+    <ClCompile Include="Intermediate.cpp">
+      <Filter>Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Attribute.cpp">
+      <Filter>Intermediate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,9 +92,6 @@
     <ClInclude Include="PrintHandler.h">
       <Filter>PrintHandler</Filter>
     </ClInclude>
-    <ClInclude Include="Store.h">
-      <Filter>Store</Filter>
-    </ClInclude>
     <ClInclude Include="Trace.h">
       <Filter>Parsing</Filter>
     </ClInclude>
@@ -104,11 +107,23 @@
     <ClInclude Include="ReduceTable.h">
       <Filter>Parsing</Filter>
     </ClInclude>
-    <ClInclude Include="SymbolList.h">
+    <ClInclude Include="ValidToken.h">
       <Filter>Parsing</Filter>
     </ClInclude>
     <ClInclude Include="TraceElem.h">
       <Filter>Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="LexStore.h">
+      <Filter>Lexical</Filter>
+    </ClInclude>
+    <ClInclude Include="Intermediate.h">
+      <Filter>Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Attribute.h">
+      <Filter>Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="FTuple.h">
+      <Filter>Intermediate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
