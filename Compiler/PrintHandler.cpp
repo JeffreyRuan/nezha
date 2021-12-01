@@ -64,15 +64,15 @@ void PrintHandler::printParsingAction(const std::string& token, const TraceElem&
 	SetConsoleTextAttribute(hConsole, 7);
 }
 
-void PrintHandler::printIntermediates(std::queue<FTuple>& q)
+void PrintHandler::printIntermediates(std::vector<FTuple>& v)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 5);
-	while (!q.empty())
+	while (!v.empty())
 	{
-		FTuple t_tpl = q.front();
+		FTuple t_tpl = v.front();
 		cout << format("< {}, {}, {}, {} >", t_tpl.op, t_tpl.arg1, t_tpl.arg2, t_tpl.result) << endl;
-		q.pop();
+		v.erase(v.begin());
 	}
 	SetConsoleTextAttribute(hConsole, 7);
 }

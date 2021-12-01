@@ -11,7 +11,7 @@ class Attribute
 public:
 	int _true;
 	int _false;
-	int _begin;
+	int _codebegin;
 	Type type;
 	std::string name;
 
