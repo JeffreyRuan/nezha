@@ -70,7 +70,7 @@ std::string Intermediate::boolnameCvrt(const std::string& _N)
 		return "0";
 	}
 
-	throw("The name has no relationships with boolean stuffs.");
+	cerr << "The name has no relationships with boolean stuffs." << endl;
 }
 
 void Intermediate::emit(const std::string& op, const std::string& arg1, const std::string& arg2, const std::string& result)
@@ -586,6 +586,6 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		//Program
 	case 0: break;
 		//Reduce Error
-	default:throw("Invalid rule ID."); break;
+	default:cerr << "Invalid rule ID." << endl; break;
 	}
 }

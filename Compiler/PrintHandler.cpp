@@ -68,11 +68,9 @@ void PrintHandler::printIntermediates(std::vector<FTuple>& v)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 5);
-	while (!v.empty())
+	for (size_t i = 0; i < v.size(); i++)
 	{
-		FTuple t_tpl = v.front();
-		cout << format("< {}, {}, {}, {} >", t_tpl.op, t_tpl.arg1, t_tpl.arg2, t_tpl.result) << endl;
-		v.erase(v.begin());
+		cout << format("[{}]  < {}, {}, {}, {} >", i, v[i].op, v[i].arg1, v[i].arg2, v[i].result) << endl;
 	}
 	SetConsoleTextAttribute(hConsole, 7);
 }
