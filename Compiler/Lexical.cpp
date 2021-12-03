@@ -234,7 +234,9 @@ int Lexical::getsym()
 			{
 				send = std::pair<int, int>(static_cast<int>(sym), -1);
 			}
+#if PRINT_LEX
 			PrintHandler::printLexicalDoublet(store_str, send);
+#endif
 		}
 		else
 			pos_scanner.reportError(errortype, store_str);
@@ -244,7 +246,9 @@ int Lexical::getsym()
 	if (ch == '\0')
 	{
 		send = std::pair<int, int>(static_cast<int>(Symbol::tail), -1);
+#if PRINT_LEX
 		PrintHandler::printLexicalDoublet("$", send);
+#endif
 		return 1;
 	}
 }

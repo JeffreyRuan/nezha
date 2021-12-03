@@ -114,7 +114,8 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 		l_buffer->pop();
 		delete t_e;
 	}
-
+#if PRINT_SYNTAX
 	PrintHandler::printParsingAction(t_token, traceStack.top(), to_do);
+#endif
 	return 0;
 }

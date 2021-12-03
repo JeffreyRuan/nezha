@@ -10,7 +10,9 @@ void Parsing::processToken(const Lexical& lobj, const bool& keep_push)
 	}
 	if (tracer.action(&buffer) == 1)
 	{
+#if PRINT_SYNTAX
 		PrintHandler::printParsingSuccessful();
+#endif
 	}
 }
 

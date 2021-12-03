@@ -3,3 +3,6 @@
 #define DOUBLET_WITH_STORED_POS 0
 #define ARG_REQUIRED 0
 #define LANGUAGE 0
+#define PRINT_LEX 0
+#define PRINT_SYNTAX 0
+#define PRINT_INTERMEDIATE 1
