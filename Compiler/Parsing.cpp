@@ -12,7 +12,6 @@ void Parsing::processToken(const Lexical& lobj, const bool& keep_push)
 	{
 		PrintHandler::printParsingSuccessful();
 	}
-	PrintHandler::printIntermediates(Intermediate::InterM_q);
 }
 
 Parsing::Parsing()

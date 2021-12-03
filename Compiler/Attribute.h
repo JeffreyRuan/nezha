@@ -12,6 +12,7 @@ public:
 	int _true;
 	int _false;
 	int _codebegin;
+	int CHAIN;
 	Type type;
 	std::string name;
 

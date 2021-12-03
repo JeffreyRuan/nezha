@@ -53,7 +53,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	//d1
 	else if (to_do == "d1")
 	{
-		switch (traceStack.top().attr.type)
+		switch (Intermediate::type[traceStack.top().attr.name])
 		{
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;
@@ -64,7 +64,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	//d2
 	else if (to_do == "d2")
 	{
-		switch (traceStack.top().attr.type)
+		switch (Intermediate::type[traceStack.top().attr.name])
 		{
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;

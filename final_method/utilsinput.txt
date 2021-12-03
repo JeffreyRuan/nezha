@@ -42,7 +42,7 @@ S -> IF_ELSE_D S
 S -> WHILE_D S
 IF_D -> if B then
 IF_ELSE_D -> IF_D S else
-WHILE_D -> WHILE_N E do
+WHILE_D -> WHILE_N B do
 WHILE_N -> while
 S -> repeat S until B
 M -> begin L end

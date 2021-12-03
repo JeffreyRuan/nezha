@@ -10,6 +10,8 @@ std::map<std::string, std::string*> Intermediate::slots;
 
 std::map<std::string, bool> Intermediate::defined;
 
+std::map<std::string, Type> Intermediate::type;
+
 std::stack<std::string*> Intermediate::temp;
 
 //Functions
@@ -17,7 +19,7 @@ int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 {
 	if (_PostChain == 0)
 	{
-		return 0;
+		return _PreChain;
 	}
 	int bf, aft;
 	bf = aft = _PostChain;
@@ -63,14 +65,12 @@ std::string Intermediate::boolnameCvrt(const std::string& _N)
 	{
 		return "1";
 	}
-	else if (_N == "false")
+	if (_N == "false")
 	{
 		return "0";
 	}
-	else
-	{
-		throw("The name has no relationships with boolean stuffs.");
-	}
+
+	throw("The name has no relationships with boolean stuffs.");
 }
 
 void Intermediate::emit(const std::string& op, const std::string& arg1, const std::string& arg2, const std::string& result)
@@ -353,9 +353,239 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		break;
 	}
 
-	//Statement
+	//IF Statement
+	case 40:
+	{
+		backpatch(R[1].attr._true, nextstat);
+		L->attr.CHAIN = R[1].attr._false;
+		break;
+	}
+	case 37:
+	{
+		L->attr.CHAIN = merge(R[0].attr.CHAIN, R[1].attr.CHAIN);
+		break;
+	}
+	case 41:
+	{
+		int tmp = nextstat;
+		emit("jump", "-", "-", "0");
+		backpatch(R[0].attr.CHAIN, nextstat);
+		L->attr.CHAIN = merge(tmp, R[1].attr.CHAIN);
+		break;
+	}
+	case 38:
+	{
+		L->attr.CHAIN = merge(R[0].attr.CHAIN, R[1].attr.CHAIN);
+		break;
+	}
 
-	//Reduce Error
+	//WHILE Statement
+	case 43:
+	{
+		L->attr._codebegin = nextstat;
+		break;
+	}
+	case 42:
+	{
+		backpatch(R[1].attr._true, nextstat);
+		L->attr.CHAIN = R[1].attr._false;
+		break;
+	}
+	case 39:
+	{
+		backpatch(R[1].attr.CHAIN, R[0].attr._codebegin);
+		emit("jump", "-", "-", to_string(R[0].attr._codebegin));
+		L->attr.CHAIN = R[0].attr.CHAIN;
+		break;
+	}
+
+	//REPEAT Statement
+	case 44:
+	{
+		backpatch(R[1].attr.CHAIN, R[3].attr._codebegin);
+		backpatch(R[3].attr._true, nextstat);
+		emit("jump", "-", "-", to_string(R[1].attr._codebegin));
+		L->attr.CHAIN = R[3].attr._false;
+		break;
+	}
+
+	//BEGIN_END
+	case 45:
+	{
+		L->attr.CHAIN = R[1].attr.CHAIN;
+		break;
+	}
+	case 35:
+	{
+		L->attr.CHAIN = R[0].attr.CHAIN;
+		break;
+	}
+
+	//Assignment
+	case 1:
+	{
+		L->attr.type = Type::integer;
+		L->attr.name = R[0].attr.name;
+		break;
+	}
+	case 2:
+	{
+		L->attr.type = Type::_bool;
+		L->attr._true = R[0].attr._true;
+		L->attr._false = R[0].attr._false;
+		break;
+	}
+	case 3:
+	{
+		L->attr.type = Type::_char;
+		L->attr.name = R[0].attr.name;
+		break;
+	}
+	case 36:
+	{
+		string* p = lookup(L->attr.name);
+		if (p != nullptr)
+		{
+			//Has Been Declared
+			if (L->attr.type != R[0].attr.type)
+			{
+				error(6);
+			}
+			else
+			{
+				switch (type[L->attr.name])
+				{
+				case Type::integer:
+				{
+					emit(":=", R[0].attr.name, "-", *p);
+					defined[L->attr.name] = true;
+					break;
+				}
+				case Type::_bool:
+				{
+					backpatch(R[0].attr._true, nextstat);
+					emit(":=", "1", "-", L->attr.name);
+					backpatch(R[0].attr._false, nextstat);
+					emit(":=", "0", "-", L->attr.name);
+					defined[L->attr.name] = true;
+					break;
+				}
+				case Type::_char:
+				{
+					emit(":=", R[0].attr.name, "-", *p);
+					defined[L->attr.name] = true;
+					break;
+				}
+				default: break;
+				}
+			}
+		}
+		else
+		{
+			error(6);
+		}
+		break;
+	}
+	case 34:
+	{
+		L->attr.CHAIN = 0;
+		break;
+	}
+
+	//Statement List
+	case 48:
+	{
+		L->attr.CHAIN = R[0].attr.CHAIN;
+		break;
+	}
+	case 46:
+	{
+		backpatch(R[0].attr.CHAIN, nextstat);
+		break;
+	}
+	case 47:
+	{
+		L->attr.CHAIN = R[1].attr.CHAIN;
+		break;
+	}
+
+	//Var Declare
+	case 54:
+	{
+		string* p = lookup(R[0].attr.name);
+		if (p != nullptr)
+		{
+			//Already Been Declared
+			error(6);
+		}
+		else
+		{
+			slots.insert(std::pair<std::string, std::string*>(R[0].attr.name, new string(R[0].attr.name)));
+			defined.insert(std::pair<std::string, bool>(R[0].attr.name, false));
+			type.insert(std::pair<std::string, Type>(R[0].attr.name, Type::integer));
+			L->attr.type = Type::integer;
+		}
+		break;
+	}
+	case 55:
+	{
+		string* p = lookup(R[0].attr.name);
+		if (p != nullptr)
+		{
+			//Already Been Declared
+			error(6);
+		}
+		else
+		{
+			slots.insert(std::pair<std::string, std::string*>(R[0].attr.name, new string(R[0].attr.name)));
+			defined.insert(std::pair<std::string, bool>(R[0].attr.name, false));
+			type.insert(std::pair<std::string, Type>(R[0].attr.name, Type::_bool));
+			L->attr.type = Type::_bool;
+		}
+		break;
+	}
+	case 56:
+	{
+		string* p = lookup(R[0].attr.name);
+		if (p != nullptr)
+		{
+			//Already Been Declared
+			error(6);
+		}
+		else
+		{
+			slots.insert(std::pair<std::string, std::string*>(R[0].attr.name, new string(R[0].attr.name)));
+			defined.insert(std::pair<std::string, bool>(R[0].attr.name, false));
+			type.insert(std::pair<std::string, Type>(R[0].attr.name, Type::_char));
+			L->attr.type = Type::_char;
+		}
+		break;
+	}
+	case 53:
+	{
+		string* p = lookup(R[0].attr.name);
+		if (p != nullptr)
+		{
+			//Already Been Declared
+			error(6);
+		}
+		else
+		{
+			slots.insert(std::pair<std::string, std::string*>(R[0].attr.name, new string(R[0].attr.name)));
+			defined.insert(std::pair<std::string, bool>(R[0].attr.name, false));
+			type.insert(std::pair<std::string, Type>(R[0].attr.name, R[2].attr.type));
+			L->attr.type = R[2].attr.type;
+		}
+		break;
+	}
+	case 49: break;
+	case 50: break;
+	case 51: break;
+	case 52: break;
+
+		//Program
+	case 0: break;
+		//Reduce Error
 	default:throw("Invalid rule ID."); break;
 	}
 }

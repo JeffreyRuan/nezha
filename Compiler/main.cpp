@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
 			keep_push = false;
 		}
 	}
+	PrintHandler::printIntermediates(Intermediate::InterM_q);
 
 	system("pause");
 }
