@@ -112,19 +112,19 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		string* p = lookup(R[0].attr.name);
 		if (p != nullptr)
 		{
-			//Identifier Has Assigned
+			//Identifier Has Declared
 			if (defined[*p])
 			{
 				L->attr.name = *p;
 			}
 			else
 			{
-				error(6);
+				error(8);
 			}
 		}
 		else
 		{
-			error(6);
+			error(7);
 		}
 		break;
 	}
