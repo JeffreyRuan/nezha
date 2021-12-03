@@ -242,12 +242,12 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			}
 			else
 			{
-				error(6);
+				error(8);
 			}
 		}
 		else
 		{
-			error(6);
+			error(7);
 		}
 		break;
 	}
@@ -343,12 +343,12 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			}
 			else
 			{
-				error(6);
+				error(8);
 			}
 		}
 		else
 		{
-			error(6);
+			error(7);
 		}
 		break;
 	}
@@ -449,7 +449,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			//Has Been Declared
 			if (L->attr.type != R[0].attr.type)
 			{
-				error(6);
+				error(9);
 			}
 			else
 			{
@@ -482,7 +482,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		}
 		else
 		{
-			error(6);
+			error(8);
 		}
 		break;
 	}
@@ -516,7 +516,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (p != nullptr)
 		{
 			//Already Been Declared
-			error(6);
+			error(10);
 		}
 		else
 		{
@@ -533,7 +533,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (p != nullptr)
 		{
 			//Already Been Declared
-			error(6);
+			error(10);
 		}
 		else
 		{
@@ -550,7 +550,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (p != nullptr)
 		{
 			//Already Been Declared
-			error(6);
+			error(10);
 		}
 		else
 		{
@@ -567,7 +567,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (p != nullptr)
 		{
 			//Already Been Declared
-			error(6);
+			error(10);
 		}
 		else
 		{
