@@ -16,9 +16,12 @@ std::map<std::string, Type> Intermediate::type;
 
 std::stack<std::string*> Intermediate::temp;
 
+int Intermediate::lastCHAIN = 0;
+
 //Functions
 int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 {
+	//#RISKY
 	if (_PostChain == 0)
 	{
 		return _PreChain;
@@ -37,9 +40,9 @@ int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 	InterM_q[bf].first.result = to_string(_PreChain);
 	return _PostChain;
 }
-
 void Intermediate::backpatch(const int& _Head, const int& _Targ)
 {
+	//#ISSUE
 	int bf, aft;
 	bf = aft = _Head;
 	while (true)
@@ -109,8 +112,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		//Arithmetic Expression
 	case 12:
 	{
-		L->attr.name = newTemp();
-		emit(":=", R[0].attr.name, "-", L->attr.name);
+		L->attr.name = R[0].attr.name;
 		break;
 	}
 	case 13:
@@ -333,8 +335,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	//Char Expression
 	case 32:
 	{
-		L->attr.name = newTemp();
-		emit(":=", R[0].attr.name, "-", L->attr.name);
+		L->attr.name = R[0].attr.name;
 		break;
 	}
 	case 33:
@@ -418,7 +419,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	//BEGIN_END
 	case 45:
 	{
-		L->attr.CHAIN = R[1].attr.CHAIN;
+		lastCHAIN = L->attr.CHAIN = R[1].attr.CHAIN;
 		break;
 	}
 	case 35:
@@ -453,7 +454,8 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (p != nullptr)
 		{
 			//Has Been Declared
-			if (type[R[0].attr.name] != type[R[2].attr.name])
+			//If the types aren't matched, error
+			if (!(type[R[0].attr.name] == type[R[2].attr.name] || type[R[0].attr.name] == R[2].attr.type))
 			{
 				error(9);
 			}
@@ -594,4 +596,10 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		//Reduce Error
 	default:cerr << "Invalid rule ID." << endl; break;
 	}
+}
+
+void Intermediate::finalPatch()
+{
+	backpatch(lastCHAIN, nextstat);
+	emit("sys", "-", "-", "-");
 }

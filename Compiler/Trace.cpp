@@ -58,7 +58,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;
 		case Type::_char: reduce("r33"); break;
-		default: pos_scanner.reportError(6); break;
+		default: pos_scanner.reportError(9); break;
 		}
 	}
 	//d2
@@ -68,7 +68,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 		{
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;
-		default: pos_scanner.reportError(6); break;
+		default: pos_scanner.reportError(9); break;
 		}
 	}
 	//error
@@ -80,6 +80,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	//acc
 	else if (to_do == "acc")
 	{
+		Intermediate::finalPatch();
 		l_buffer->pop();
 		return 1;
 	}

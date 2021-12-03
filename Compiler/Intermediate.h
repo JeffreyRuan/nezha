@@ -10,6 +10,7 @@ private:
 	static std::map<std::string, bool> defined;
 	static std::map<std::string, Type> type;
 	static std::stack<std::string*> temp;
+	static int lastCHAIN;
 	static int nextstat;
 	static int currRulId;
 
@@ -25,5 +26,6 @@ private:
 	static void error(const int& _Id);
 public:
 	static std::vector <std::pair<FTuple, int>>InterM_q;
-	static void translate(std::vector<TraceElem>& _Pre, TraceElem* _Post, const int& _RulId);
+	static void translate(std::vector<TraceElem>& R, TraceElem* L, const int& _RulId);
+	static void finalPatch();
 };
