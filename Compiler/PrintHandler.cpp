@@ -64,13 +64,16 @@ void PrintHandler::printParsingAction(const std::string& token, const TraceElem&
 	SetConsoleTextAttribute(hConsole, 7);
 }
 
-void PrintHandler::printIntermediates(std::vector<FTuple>& v)
+void PrintHandler::printIntermediates(std::vector<std::pair<FTuple, int>>& v)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, 5);
+
 	for (size_t i = 0; i < v.size(); i++)
 	{
-		cout << format("[{}]  < {}, {}, {}, {} >", i, v[i].op, v[i].arg1, v[i].arg2, v[i].result) << endl;
+		SetConsoleTextAttribute(hConsole, 3);
+		cout << format("[{}]  < {}, {}, {}, {} >", i, v[i].first.op, v[i].first.arg1, v[i].first.arg2, v[i].first.result);
+		SetConsoleTextAttribute(hConsole, 8);
+		cout << format("   #{}", v[i].second) << endl;
 	}
 	SetConsoleTextAttribute(hConsole, 7);
 }

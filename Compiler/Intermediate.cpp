@@ -2,9 +2,11 @@
 #include "Intermediate.h"
 using namespace std;
 
-std::vector <FTuple> Intermediate::InterM_q;
+std::vector <std::pair<FTuple, int>> Intermediate::InterM_q;
 
 int Intermediate::nextstat = 0;
+
+int Intermediate::currRulId = 0;
 
 std::map<std::string, std::string*> Intermediate::slots;
 
@@ -25,14 +27,14 @@ int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 	bf = aft = _PostChain;
 	while (true)
 	{
-		aft = atoi(InterM_q[bf].result.c_str());
+		aft = atoi(InterM_q[bf].first.result.c_str());
 		if (aft == 0)
 		{
 			break;
 		}
 		bf = aft;
 	}
-	InterM_q[bf].result = to_string(_PreChain);
+	InterM_q[bf].first.result = to_string(_PreChain);
 	return _PostChain;
 }
 
@@ -42,20 +44,21 @@ void Intermediate::backpatch(const int& _Head, const int& _Targ)
 	bf = aft = _Head;
 	while (true)
 	{
-		aft = atoi(InterM_q[bf].result.c_str());
+		aft = atoi(InterM_q[bf].first.result.c_str());
 		if (aft == 0)
 		{
 			break;
 		}
-		InterM_q[bf].result = to_string(_Targ);
+		InterM_q[bf].first.result = to_string(_Targ);
 		bf = aft;
 	}
-	InterM_q[bf].result = to_string(_Targ);
+	InterM_q[bf].first.result = to_string(_Targ);
 }
 
 std::string Intermediate::newTemp()
 {
 	temp.push(new std::string("T" + to_string(temp.size())));
+	type.insert(std::pair<std::string, Type>(*temp.top(), Type::integer));
 	return *temp.top();
 }
 
@@ -76,7 +79,7 @@ std::string Intermediate::boolnameCvrt(const std::string& _N)
 void Intermediate::emit(const std::string& op, const std::string& arg1, const std::string& arg2, const std::string& result)
 {
 	FTuple t_tpl = { op, arg1, arg2, result };
-	InterM_q.emplace_back(t_tpl);
+	InterM_q.emplace_back(std::pair<FTuple, int>(t_tpl, currRulId));
 	nextstat++;
 }
 
@@ -98,6 +101,9 @@ void Intermediate::error(const int& _Id)
 
 void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int& _RulId)
 {
+	//Update currRulId
+	currRulId = _RulId;
+
 	switch (_RulId)
 	{
 		//Arithmetic Expression
@@ -443,37 +449,37 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	}
 	case 36:
 	{
-		string* p = lookup(L->attr.name);
+		string* p = lookup(R[0].attr.name);
 		if (p != nullptr)
 		{
 			//Has Been Declared
-			if (L->attr.type != R[0].attr.type)
+			if (type[R[0].attr.name] != type[R[2].attr.name])
 			{
 				error(9);
 			}
 			else
 			{
-				switch (type[L->attr.name])
+				switch (type[R[0].attr.name])
 				{
 				case Type::integer:
 				{
-					emit(":=", R[0].attr.name, "-", *p);
-					defined[L->attr.name] = true;
+					emit(":=", R[2].attr.name, "-", *p);
+					defined[R[0].attr.name] = true;
 					break;
 				}
 				case Type::_bool:
 				{
-					backpatch(R[0].attr._true, nextstat);
-					emit(":=", "1", "-", L->attr.name);
-					backpatch(R[0].attr._false, nextstat);
-					emit(":=", "0", "-", L->attr.name);
-					defined[L->attr.name] = true;
+					backpatch(R[2].attr._true, nextstat);
+					emit(":=", "1", "-", R[0].attr.name);
+					backpatch(R[2].attr._false, nextstat);
+					emit(":=", "0", "-", R[0].attr.name);
+					defined[R[0].attr.name] = true;
 					break;
 				}
 				case Type::_char:
 				{
-					emit(":=", R[0].attr.name, "-", *p);
-					defined[L->attr.name] = true;
+					emit(":=", R[2].attr.name, "-", *p);
+					defined[R[0].attr.name] = true;
 					break;
 				}
 				default: break;

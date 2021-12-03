@@ -11,6 +11,7 @@ private:
 	static std::map<std::string, Type> type;
 	static std::stack<std::string*> temp;
 	static int nextstat;
+	static int currRulId;
 
 	//Functions
 	static void emit(const std::string& op, const std::string& arg1, const std::string& arg2, const std::string& result);
@@ -23,6 +24,6 @@ private:
 	friend class Trace;
 	static void error(const int& _Id);
 public:
-	static std::vector <FTuple>InterM_q;
+	static std::vector <std::pair<FTuple, int>>InterM_q;
 	static void translate(std::vector<TraceElem>& _Pre, TraceElem* _Post, const int& _RulId);
 };

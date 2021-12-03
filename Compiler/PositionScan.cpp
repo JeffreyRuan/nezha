@@ -40,8 +40,8 @@ std::string PositionScan::warningVariant(const int& errortype, const std::string
 	case 4: WarningContext = "unrecognized token"; break;
 	case 5: WarningContext = "syntax error"; break;
 	case 6: WarningContext = "semantic error"; break;
-	case 7: WarningContext = "identifier is not defined"; break;
-	case 8: WarningContext = "identifier is not declared"; break;
+	case 7: WarningContext = "identifier is not declared"; break;
+	case 8: WarningContext = "identifier is not defined"; break;
 	case 9: WarningContext = "illegal assignment: inconsistent type"; break;
 	case 10:WarningContext = "variable redeclare"; break;
 	default: WarningContext = ""; break;
