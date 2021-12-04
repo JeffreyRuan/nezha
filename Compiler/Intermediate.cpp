@@ -16,22 +16,23 @@ std::map<std::string, Type> Intermediate::type;
 
 std::stack<std::string*> Intermediate::temp;
 
-int Intermediate::lastCHAIN = 0;
+int Intermediate::lastCHAIN = -1;
 
 //Functions
 int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 {
 	//#RISKY
-	if (_PostChain == 0)
+	if (_PostChain == -1)
 	{
 		return _PreChain;
 	}
+	//#ASSUME
 	int bf, aft;
 	bf = aft = _PostChain;
 	while (true)
 	{
 		aft = atoi(InterM_q[bf].first.result.c_str());
-		if (aft == 0)
+		if (aft == -1)
 		{
 			break;
 		}
@@ -45,10 +46,15 @@ void Intermediate::backpatch(const int& _Head, const int& _Targ)
 	//#ISSUE
 	int bf, aft;
 	bf = aft = _Head;
+	if (bf == -1)
+	{
+		return;
+	}
 	while (true)
 	{
+		//#ASSUME
 		aft = atoi(InterM_q[bf].first.result.c_str());
-		if (aft == 0)
+		if (aft == -1)
 		{
 			break;
 		}
@@ -60,7 +66,7 @@ void Intermediate::backpatch(const int& _Head, const int& _Targ)
 
 std::string Intermediate::newTemp()
 {
-	temp.push(new std::string("T" + to_string(temp.size())));
+	temp.push(new std::string("T" + to_string(temp.size() + 1)));
 	type.insert(std::pair<std::string, Type>(*temp.top(), Type::integer));
 	return *temp.top();
 }
@@ -234,7 +240,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			L->attr._true = 0;
 			L->attr._false = nextstat;
 		}
-		emit("jump", "-", "-", "0");
+		emit("jump", "-", "-", "-1");
 
 		break;
 	}
@@ -271,8 +277,8 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		L->attr._codebegin = nextstat;
 		L->attr._true = nextstat;
 		L->attr._false = nextstat + 1;
-		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "0");
-		emit("jump", "-", "-", "0");
+		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "-1");
+		emit("jump", "-", "-", "-1");
 		break;
 	}
 	case 25:
@@ -280,8 +286,8 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		L->attr._codebegin = nextstat;
 		L->attr._true = nextstat;
 		L->attr._false = nextstat + 1;
-		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "0");
-		emit("jump", "-", "-", "0");
+		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "-1");
+		emit("jump", "-", "-", "-1");
 		break;
 	}
 
@@ -375,7 +381,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	case 41:
 	{
 		int tmp = nextstat;
-		emit("jump", "-", "-", "0");
+		emit("jump", "-", "-", "-1");
 		backpatch(R[0].attr.CHAIN, nextstat);
 		L->attr.CHAIN = merge(tmp, R[1].attr.CHAIN);
 		break;
@@ -496,7 +502,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	}
 	case 34:
 	{
-		L->attr.CHAIN = 0;
+		L->attr.CHAIN = -1;
 		break;
 	}
 

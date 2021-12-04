@@ -25,6 +25,9 @@ void Trace::reduce(const std::string& to_do)
 	//Adjust to_do to permitted integer
 	int t_numberpart = atoi(to_do.substr(1, to_do.size() - 1).c_str());
 	Intermediate::translate(t_v, &traceStack.top(), t_numberpart);
+#if PRINT_INTERMEDIATE
+	PrintHandler::printConditionAttr(traceStack.top());/*#TEMP*/
+#endif
 }
 
 std::string Trace::identDoubletToString(const std::pair<int, int>& l_doublet)

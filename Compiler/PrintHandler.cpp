@@ -64,6 +64,16 @@ void PrintHandler::printParsingAction(const std::string& token, const TraceElem&
 	SetConsoleTextAttribute(hConsole, 7);
 }
 
+void PrintHandler::printConditionAttr(const TraceElem& top)
+{
+	string b = top.attr._codebegin == -1 ? "" : "codebegin: " + to_string(top.attr._codebegin) + ", ";
+	string t = top.attr._true == -1 ? "" : "true: " + to_string(top.attr._true) + ", ";
+	string f = top.attr._false == -1 ? "" : "false: " + to_string(top.attr._false) + ", ";
+	string c = top.attr.CHAIN == -1 ? "" : "CHAIN: " + to_string(top.attr.CHAIN) + ", ";
+
+	cout << format("  {} {}{}{}{}", top.label, b, t, f, c) << endl << endl;
+}
+
 void PrintHandler::printIntermediates(std::vector<std::pair<FTuple, int>>& v)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
