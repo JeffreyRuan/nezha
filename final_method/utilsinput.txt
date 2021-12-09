@@ -44,7 +44,7 @@ IF_D -> if B then
 IF_ELSE_D -> IF_D S else
 WHILE_D -> WHILE_N B do
 WHILE_N -> while
-S -> repeat S until B
+S -> REPEAT_N S until B
 M -> begin L end
 L_D -> L ;
 L -> L_D S
@@ -57,3 +57,4 @@ O -> f , O
 O -> f : integer
 O -> f : bool
 O -> f : char
+REPEAT_N -> repeat

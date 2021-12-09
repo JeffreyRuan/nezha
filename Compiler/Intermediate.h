@@ -25,6 +25,7 @@ private:
 	friend class Trace;
 	static void error(const int& _Id);
 public:
+	static std::string programName;
 	static std::vector <std::pair<FTuple, int>>InterM_q;
 	static void translate(std::vector<TraceElem>& R, TraceElem* L, const int& _RulId);
 	static void finalPatch();

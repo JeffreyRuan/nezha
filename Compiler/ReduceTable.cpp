@@ -60,6 +60,7 @@ std::unordered_map<std::string, int> ReduceTable::R_backLen =
 	{"r54", 3},
 	{"r55", 3},
 	{"r56", 3},
+	{"r57", 1},
 };
 
 std::unordered_map<std::string, std::string> ReduceTable::R_NonTermnl =
@@ -121,4 +122,5 @@ std::unordered_map<std::string, std::string> ReduceTable::R_NonTermnl =
 	{"r54", "O"},
 	{"r55", "O"},
 	{"r56", "O"},
+	{"r57", "REPEAT_N"},
 };

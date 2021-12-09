@@ -12,6 +12,6 @@ public:
 	static int printCmdResp(const int& argc, std::string& doc_name, char**& argv, std::fstream& t_fs);
 	static void printParsingSuccessful();
 	static void printParsingAction(const std::string& token, const TraceElem& e, const std::string& action);
-	static void printConditionAttr(const TraceElem& top);/*#TEMP*/
+	static void printConditionAttr(const TraceElem& top);
 	static void printIntermediates(std::vector<std::pair<FTuple, int>>& v);
 };

@@ -33,6 +33,10 @@ int main(int argc, char* argv[])
 			keep_push = false;
 		}
 	}
+
+	//Add Program Name FTuple
+	FTuple t_ftpl = { "program", Intermediate::programName, "-", "-" };
+	Intermediate::InterM_q.insert(Intermediate::InterM_q.begin(), std::pair<FTuple, int>(t_ftpl, 0));
 #if PRINT_INTERMEDIATE
 	PrintHandler::printIntermediates(Intermediate::InterM_q);
 #endif

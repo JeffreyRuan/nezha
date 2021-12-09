@@ -4,5 +4,6 @@
 #define ARG_REQUIRED 0
 #define LANGUAGE 0
 #define PRINT_LEX 0
-#define PRINT_SYNTAX 1
+#define PRINT_SYNTAX 0
 #define PRINT_INTERMEDIATE 1
+#define INTERM_ASSISTANT 0

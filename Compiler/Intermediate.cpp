@@ -8,6 +8,8 @@ int Intermediate::nextstat = 0;
 
 int Intermediate::currRulId = 0;
 
+std::string Intermediate::programName;
+
 std::map<std::string, std::string*> Intermediate::slots;
 
 std::map<std::string, bool> Intermediate::defined;
@@ -21,12 +23,10 @@ int Intermediate::lastCHAIN = -1;
 //Functions
 int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 {
-	//#RISKY
 	if (_PostChain == -1)
 	{
 		return _PreChain;
 	}
-	//#ASSUME
 	int bf, aft;
 	bf = aft = _PostChain;
 	while (true)
@@ -43,7 +43,6 @@ int Intermediate::merge(const int& _PreChain, const int& _PostChain)
 }
 void Intermediate::backpatch(const int& _Head, const int& _Targ)
 {
-	//#ISSUE
 	int bf, aft;
 	bf = aft = _Head;
 	if (bf == -1)
@@ -52,7 +51,6 @@ void Intermediate::backpatch(const int& _Head, const int& _Targ)
 	}
 	while (true)
 	{
-		//#ASSUME
 		aft = atoi(InterM_q[bf].first.result.c_str());
 		if (aft == -1)
 		{
@@ -129,12 +127,16 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			//Identifier Has Declared
 			if (defined[*p])
 			{
-				L->attr.name = *p;
+				if (type[*p] != Type::integer)
+				{
+					error(9);
+				}
 			}
 			else
 			{
 				error(8);
 			}
+			L->attr.name = *p;
 		}
 		else
 		{
@@ -233,11 +235,11 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		if (t_str == "true")
 		{
 			L->attr._true = nextstat;
-			L->attr._false = 0;
+			L->attr._false = -1;
 		}
 		else if (t_str == "false")
 		{
-			L->attr._true = 0;
+			L->attr._true = -1;
 			L->attr._false = nextstat;
 		}
 		emit("jump", "-", "-", "-1");
@@ -252,12 +254,16 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			//Identifier Has Assigned
 			if (defined[*p])
 			{
-				L->attr.name = *p;
+				if (type[*p] != Type::_bool)
+				{
+					error(9);
+				}
 			}
 			else
 			{
 				error(8);
 			}
+			L->attr.name = *p;
 		}
 		else
 		{
@@ -352,12 +358,16 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			//Identifier Has Assigned
 			if (defined[*p])
 			{
-				L->attr.name = *p;
+				if (type[*p] != Type::_char)
+				{
+					error(9);
+				}
 			}
 			else
 			{
 				error(8);
 			}
+			L->attr.name = *p;
 		}
 		else
 		{
@@ -400,6 +410,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	}
 	case 42:
 	{
+		L->attr._codebegin = R[0].attr._codebegin;
 		backpatch(R[1].attr._true, nextstat);
 		L->attr.CHAIN = R[1].attr._false;
 		break;
@@ -413,12 +424,16 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	}
 
 	//REPEAT Statement
+	case 57:
+	{
+		L->attr._codebegin = nextstat;
+		break;
+	}
 	case 44:
 	{
 		backpatch(R[1].attr.CHAIN, R[3].attr._codebegin);
-		backpatch(R[3].attr._true, nextstat);
-		emit("jump", "-", "-", to_string(R[1].attr._codebegin));
-		L->attr.CHAIN = R[3].attr._false;
+		backpatch(R[3].attr._false, R[0].attr._codebegin);
+		L->attr.CHAIN = R[3].attr._true;
 		break;
 	}
 
@@ -479,6 +494,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 				{
 					backpatch(R[2].attr._true, nextstat);
 					emit(":=", "1", "-", R[0].attr.name);
+					emit("jump", "-", "-", to_string(nextstat + 2));
 					backpatch(R[2].attr._false, nextstat);
 					emit(":=", "0", "-", R[0].attr.name);
 					defined[R[0].attr.name] = true;
@@ -598,8 +614,13 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	case 52: break;
 
 		//Program
-	case 0: break;
-		//Reduce Error
+	case 0:
+	{
+		programName = R[1].attr.name;
+		break;
+	}
+
+	//Reduce Error
 	default:cerr << "Invalid rule ID." << endl; break;
 	}
 }

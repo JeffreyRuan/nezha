@@ -71,7 +71,7 @@ void PrintHandler::printConditionAttr(const TraceElem& top)
 	string f = top.attr._false == -1 ? "" : "false: " + to_string(top.attr._false) + ", ";
 	string c = top.attr.CHAIN == -1 ? "" : "CHAIN: " + to_string(top.attr.CHAIN) + ", ";
 
-	cout << format("  {} {}{}{}{}", top.label, b, t, f, c) << endl << endl;
+	cout << endl << format("  {} {}{}{}{}", top.label, b, t, f, c) << endl;
 }
 
 void PrintHandler::printIntermediates(std::vector<std::pair<FTuple, int>>& v)
@@ -81,9 +81,13 @@ void PrintHandler::printIntermediates(std::vector<std::pair<FTuple, int>>& v)
 	for (size_t i = 0; i < v.size(); i++)
 	{
 		SetConsoleTextAttribute(hConsole, 3);
-		cout << format("[{}]  < {}, {}, {}, {} >", i, v[i].first.op, v[i].first.arg1, v[i].first.arg2, v[i].first.result);
+		cout << format("[{}]  < {}, {}, {}, {} >", i == 0 ? "*" : to_string(i - 1), v[i].first.op, v[i].first.arg1, v[i].first.arg2, v[i].first.result);
+#if INTERM_ASSISTANT
 		SetConsoleTextAttribute(hConsole, 8);
 		cout << format("   #{}", v[i].second) << endl;
+#else
+		cout << endl;
+#endif
 	}
 	SetConsoleTextAttribute(hConsole, 7);
 }

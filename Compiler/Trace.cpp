@@ -25,8 +25,8 @@ void Trace::reduce(const std::string& to_do)
 	//Adjust to_do to permitted integer
 	int t_numberpart = atoi(to_do.substr(1, to_do.size() - 1).c_str());
 	Intermediate::translate(t_v, &traceStack.top(), t_numberpart);
-#if PRINT_INTERMEDIATE
-	PrintHandler::printConditionAttr(traceStack.top());/*#TEMP*/
+#if INTERM_ASSISTANT
+	PrintHandler::printConditionAttr(traceStack.top());
 #endif
 }
 
@@ -84,6 +84,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	else if (to_do == "acc")
 	{
 		Intermediate::finalPatch();
+		reduce("r0");
 		l_buffer->pop();
 		return 1;
 	}
