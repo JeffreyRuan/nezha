@@ -38,7 +38,7 @@ std::string PositionScan::warningVariant(const int& errortype, const std::string
 	case 2: WarningContext = "missing closing quote"; break;
 	case 3: WarningContext = "comment unclosed at end of file"; break;
 	case 4: WarningContext = "unrecognized token"; break;
-	case 5: WarningContext = "syntax error"; break;
+	case 5: WarningContext = "syntax error\n\n[x] This compiler hasn't supported panic-mode recovery yet, parsing was failed and broked.**"; break;
 	case 6: WarningContext = "semantic error"; break;
 	case 7: WarningContext = "undeclared identifier"; break;
 	case 8: WarningContext = "identifier has not been defined yet"; break;

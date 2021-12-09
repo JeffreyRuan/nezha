@@ -78,6 +78,7 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	else if (to_do.front() == 'e')
 	{
 		pos_scanner.reportError(5);
+		system("pause");
 		//Panic-mode recovery
 	}
 	//acc
@@ -123,4 +124,4 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	PrintHandler::printParsingAction(t_token, traceStack.top(), to_do);
 #endif
 	return 0;
-}
+	}
