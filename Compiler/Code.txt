@@ -1,7 +1,10 @@
-program g;
-var A:integer; 
+program idontknow;
+var A:integer;
 begin
-if false
-then
-A:= d
+A:=0;
+repeat
+A:=A+1
+/**/
+until
+A > 5
 end.

@@ -213,6 +213,8 @@ int Lexical::getsym()
 
 		if (sym == Symbol::comment)
 		{
+			send = std::pair<int, int>(static_cast<int>(Symbol::comment), -1);
+			currpos.set(pos_scanner.prevcharacter, pos_scanner.line, pos_scanner.character);
 		}
 		else if (sym != Symbol::nul)
 		{
