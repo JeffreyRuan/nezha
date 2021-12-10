@@ -14,4 +14,5 @@ public:
 	static void printParsingAction(const std::string& token, const TraceElem& e, const std::string& action);
 	static void printConditionAttr(const TraceElem& top);
 	static void printIntermediates(std::vector<std::pair<FTuple, int>>& v);
+	static void printParsingFailedWarning();
 };

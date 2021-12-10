@@ -35,6 +35,8 @@ std::string Trace::identDoubletToString(const std::pair<int, int>& l_doublet)
 	return find_if(LexStore::storemap.begin(), LexStore::storemap.end(), [&](const std::map<string, unsigned int>::value_type& pair) {return pair.second == l_doublet.second; })->first;
 }
 
+PosParam Trace::m_Pos(0, 0, 0);
+
 Trace::Trace()
 {
 	//Push base status into the trace stack
@@ -42,10 +44,13 @@ Trace::Trace()
 	traceStack.push(t_e);
 }
 
-int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
+int Trace::action(std::queue<TokenParam>* l_buffer)
 {
+	//Store the Position of Token in front of the Buffer
+	m_Pos.set(l_buffer->front().pos.prevcharacter, l_buffer->front().pos.line, l_buffer->front().pos.character);
+
 	int top = traceStack.top().status;
-	std::string t_token = ValidToken::words[l_buffer->front().first];
+	std::string t_token = ValidToken::words[l_buffer->front().doublet.first];
 	string to_do = LR_Table::m_lrmap[t_token][top];
 
 	//r..
@@ -61,7 +66,13 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;
 		case Type::_char: reduce("r33"); break;
-		default: pos_scanner.reportError(9); break;
+		default:
+		{
+			PositionScan::reportError(7, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
+			PrintHandler::printParsingFailedWarning();
+			system("pause");
+			break;
+		}
 		}
 	}
 	//d2
@@ -71,15 +82,22 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 		{
 		case Type::integer: reduce("r13"); break;
 		case Type::_bool: reduce("r22"); break;
-		default: pos_scanner.reportError(9); break;
+		default:
+		{
+			PositionScan::reportError(7, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
+			PrintHandler::printParsingFailedWarning();
+			system("pause");
+			break;
+		}
 		}
 	}
 	//error
 	else if (to_do.front() == 'e')
 	{
-		pos_scanner.reportError(5);
-		system("pause");
+		PositionScan::reportError(5, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
 		//Panic-mode recovery
+		PrintHandler::printParsingFailedWarning();
+		system("pause");
 	}
 	//acc
 	else if (to_do == "acc")
@@ -94,32 +112,32 @@ int Trace::action(std::queue<std::pair<int, int>>* l_buffer)
 	{
 		int i_to_do = std::atoi(to_do.c_str());
 		TraceElem* t_e;
-		int& wordnum = l_buffer->front().first;
+		int& wordnum = l_buffer->front().doublet.first;
 		//identifier, number or string
 		if (wordnum == 36 || wordnum == 37 || wordnum == 38)
 		{
-			t_e = new TraceElem(i_to_do, l_buffer->front(), identDoubletToString(l_buffer->front()), Attribute());
+			t_e = new TraceElem(i_to_do, l_buffer->front().doublet, identDoubletToString(l_buffer->front().doublet), Attribute());
 		}
 		//word is "false"
 		else if (wordnum == 13)
 		{
-			t_e = new TraceElem(i_to_do, l_buffer->front(), "false", Attribute());
+			t_e = new TraceElem(i_to_do, l_buffer->front().doublet, "false", Attribute());
 		}
 		//word is "true"
 		else if (wordnum == 31)
 		{
-			t_e = new TraceElem(i_to_do, l_buffer->front(), "true", Attribute());
+			t_e = new TraceElem(i_to_do, l_buffer->front().doublet, "true", Attribute());
 		}
 		//other keywords
 		else
 		{
-			t_e = new TraceElem(i_to_do, l_buffer->front(), ValidToken::words[l_buffer->front().first], Attribute());
+			t_e = new TraceElem(i_to_do, l_buffer->front().doublet, ValidToken::words[l_buffer->front().doublet.first], Attribute());
 		}
 
 		traceStack.push(*t_e);
 		l_buffer->pop();
 		delete t_e;
-	}
+		}
 #if PRINT_SYNTAX
 	PrintHandler::printParsingAction(t_token, traceStack.top(), to_do);
 #endif

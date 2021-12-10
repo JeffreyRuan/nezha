@@ -91,3 +91,11 @@ void PrintHandler::printIntermediates(std::vector<std::pair<FTuple, int>>& v)
 	}
 	SetConsoleTextAttribute(hConsole, 7);
 }
+
+void PrintHandler::printParsingFailedWarning()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 4);
+	cout << "[x] this compiler hasn't supported panic-mode recovery yet, parsing was failed and broken." << endl;
+	SetConsoleTextAttribute(hConsole, 7);
+}

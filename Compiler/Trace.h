@@ -6,16 +6,17 @@
 #include "LexStore.h"
 #include "TraceElem.h"
 #include "Intermediate.h"
+#include "TokenParam.h"
 
 class Trace
 {
 private:
 	std::stack<TraceElem>traceStack;
-	PositionScan pos_scanner;
 	void reduce(const std::string& to_do);
 	static std::string identDoubletToString(const std::pair<int, int>& l_doublet);
 
 public:
+	static PosParam m_Pos;
 	Trace();
-	int action(std::queue<std::pair<int, int>>* l_buffer);
+	int action(std::queue<TokenParam>* l_buffer);
 };

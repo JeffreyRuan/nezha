@@ -69,20 +69,6 @@ std::string Intermediate::newTemp()
 	return *temp.top();
 }
 
-std::string Intermediate::boolnameCvrt(const std::string& _N)
-{
-	if (_N == "true")
-	{
-		return "1";
-	}
-	if (_N == "false")
-	{
-		return "0";
-	}
-
-	cerr << "The name has no relationships with boolean stuffs." << endl;
-}
-
 void Intermediate::emit(const std::string& op, const std::string& arg1, const std::string& arg2, const std::string& result)
 {
 	FTuple t_tpl = { op, arg1, arg2, result };
@@ -103,7 +89,7 @@ std::string* Intermediate::lookup(std::string ident_name)
 
 void Intermediate::error(const int& _Id)
 {
-	PositionScan::reportError(_Id);
+	PositionScan::reportError(_Id, Trace::m_Pos.line, Trace::m_Pos.prevcharacter, Trace::m_Pos.character);
 }
 
 void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int& _RulId)
@@ -242,7 +228,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 			L->attr._true = -1;
 			L->attr._false = nextstat;
 		}
-		emit("jump", "-", "-", "-1");
+		emit("j", "-", "-", "-1");
 
 		break;
 	}
@@ -284,7 +270,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		L->attr._true = nextstat;
 		L->attr._false = nextstat + 1;
 		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "-1");
-		emit("jump", "-", "-", "-1");
+		emit("j", "-", "-", "-1");
 		break;
 	}
 	case 25:
@@ -293,7 +279,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 		L->attr._true = nextstat;
 		L->attr._false = nextstat + 1;
 		emit("j" + R[1].attr.name, R[0].attr.name, R[2].attr.name, "-1");
-		emit("jump", "-", "-", "-1");
+		emit("j", "-", "-", "-1");
 		break;
 	}
 
@@ -391,7 +377,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	case 41:
 	{
 		int tmp = nextstat;
-		emit("jump", "-", "-", "-1");
+		emit("j", "-", "-", "-1");
 		backpatch(R[0].attr.CHAIN, nextstat);
 		L->attr.CHAIN = merge(tmp, R[1].attr.CHAIN);
 		break;
@@ -418,7 +404,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 	case 39:
 	{
 		backpatch(R[1].attr.CHAIN, R[0].attr._codebegin);
-		emit("jump", "-", "-", to_string(R[0].attr._codebegin));
+		emit("j", "-", "-", to_string(R[0].attr._codebegin));
 		L->attr.CHAIN = R[0].attr.CHAIN;
 		break;
 	}
@@ -494,7 +480,7 @@ void Intermediate::translate(std::vector<TraceElem>& R, TraceElem* L, const int&
 				{
 					backpatch(R[2].attr._true, nextstat);
 					emit(":=", "1", "-", R[0].attr.name);
-					emit("jump", "-", "-", to_string(nextstat + 2));
+					emit("j", "-", "-", to_string(nextstat + 2));
 					backpatch(R[2].attr._false, nextstat);
 					emit(":=", "0", "-", R[0].attr.name);
 					defined[R[0].attr.name] = true;

@@ -4,7 +4,7 @@ using namespace std;
 
 unsigned int Lexical::store_cnt = 0;
 
-Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(61, -1), sym(Symbol::nul), residue(false)
+Lexical::Lexical(std::string l_doc) : ch('\0'), give_back('\0'), send(61, -1), sym(Symbol::nul), residue(false), currpos(0, 0, 0)
 {
 	fs.open(l_doc, ios::in);
 }
@@ -223,16 +223,19 @@ int Lexical::getsym()
 				{
 					//Word Found
 					send = std::pair<int, int>(static_cast<int>(sym), it->second);
+					currpos.set(pos_scanner.prevcharacter, pos_scanner.line, pos_scanner.character);
 				}
 				else
 				{
 					LexStore::storemap.emplace(std::pair<std::string, unsigned int>(store_str, ++store_cnt));
 					send = std::pair<int, int>(static_cast<int>(sym), store_cnt);
+					currpos.set(pos_scanner.prevcharacter, pos_scanner.line, pos_scanner.character);
 				}
 			}
 			else
 			{
 				send = std::pair<int, int>(static_cast<int>(sym), -1);
+				currpos.set(pos_scanner.prevcharacter, pos_scanner.line, pos_scanner.character);
 			}
 #if PRINT_LEX
 			PrintHandler::printLexicalDoublet(store_str, send);
@@ -246,6 +249,7 @@ int Lexical::getsym()
 	if (ch == '\0')
 	{
 		send = std::pair<int, int>(static_cast<int>(Symbol::tail), -1);
+		currpos.set(pos_scanner.prevcharacter, pos_scanner.line, pos_scanner.character);
 #if PRINT_LEX
 		PrintHandler::printLexicalDoublet("$", send);
 #endif

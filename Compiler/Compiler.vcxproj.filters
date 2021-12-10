@@ -10,9 +10,6 @@
     <Filter Include="Lexical">
       <UniqueIdentifier>{df979a88-127d-4edc-ba9f-6d17152aefc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PositionScan">
-      <UniqueIdentifier>{42e18210-b432-42b5-82f6-0b16117509ba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Error">
       <UniqueIdentifier>{6c49e977-de15-44db-b913-42a2ee98f88a}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="Intermediate">
       <UniqueIdentifier>{95848b43-db30-484d-8b76-b2b303bb61f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PositionModule">
+      <UniqueIdentifier>{42e18210-b432-42b5-82f6-0b16117509ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,7 +43,7 @@
       <Filter>Error</Filter>
     </ClCompile>
     <ClCompile Include="PositionScan.cpp">
-      <Filter>PositionScan</Filter>
+      <Filter>PositionModule</Filter>
     </ClCompile>
     <ClCompile Include="PrintHandler.cpp">
       <Filter>PrintHandler</Filter>
@@ -72,6 +72,12 @@
     <ClCompile Include="Attribute.cpp">
       <Filter>Intermediate</Filter>
     </ClCompile>
+    <ClCompile Include="PosParam.cpp">
+      <Filter>PositionModule</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenParam.cpp">
+      <Filter>Parsing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,7 +93,7 @@
       <Filter>Error</Filter>
     </ClInclude>
     <ClInclude Include="PositionScan.h">
-      <Filter>PositionScan</Filter>
+      <Filter>PositionModule</Filter>
     </ClInclude>
     <ClInclude Include="PrintHandler.h">
       <Filter>PrintHandler</Filter>
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="FTuple.h">
       <Filter>Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="PosParam.h">
+      <Filter>PositionModule</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenParam.h">
+      <Filter>Parsing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

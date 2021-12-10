@@ -1,6 +1,7 @@
 #pragma once
 #include "WordHashing.h"
 #include "PositionScan.h"
+#include "PosParam.h"
 
 class Lexical
 {
@@ -15,6 +16,7 @@ private:
 public:
 	Symbol sym;
 	std::pair<int, int> send;
+	PosParam currpos;
 	Lexical(std::string l_doc);
 	~Lexical();
 	bool isChar(const char& ch);

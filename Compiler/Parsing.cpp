@@ -6,7 +6,7 @@ void Parsing::processToken(const Lexical& lobj, const bool& keep_push)
 {
 	if (keep_push)
 	{
-		buffer.push(lobj.send);
+		buffer.push(TokenParam(lobj.send, lobj.currpos));
 	}
 	if (tracer.action(&buffer) == 1)
 	{

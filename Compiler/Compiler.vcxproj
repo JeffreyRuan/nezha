@@ -156,8 +156,10 @@
     <ClCompile Include="Intermediate.cpp" />
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="PositionScan.cpp" />
+    <ClCompile Include="PosParam.cpp" />
     <ClCompile Include="PrintHandler.cpp" />
     <ClCompile Include="LexStore.cpp" />
+    <ClCompile Include="TokenParam.cpp" />
     <ClCompile Include="ValidToken.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="WordHashing.cpp" />
@@ -181,9 +183,11 @@
     <ClInclude Include="Parsing.h" />
     <ClInclude Include="LR_Table.h" />
     <ClInclude Include="PositionScan.h" />
+    <ClInclude Include="PosParam.h" />
     <ClInclude Include="PrintHandler.h" />
     <ClInclude Include="ReduceTable.h" />
     <ClInclude Include="LexStore.h" />
+    <ClInclude Include="TokenParam.h" />
     <ClInclude Include="ValidToken.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="TraceElem.h" />
