@@ -70,8 +70,7 @@ int Trace::action(std::queue<TokenParam>* l_buffer)
 		{
 			PositionScan::reportError(7, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
 			PrintHandler::printParsingFailedWarning();
-			system("pause");
-			break;
+			return -1;
 		}
 		}
 	}
@@ -86,8 +85,7 @@ int Trace::action(std::queue<TokenParam>* l_buffer)
 		{
 			PositionScan::reportError(7, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
 			PrintHandler::printParsingFailedWarning();
-			system("pause");
-			break;
+			return -1;
 		}
 		}
 	}
@@ -97,7 +95,7 @@ int Trace::action(std::queue<TokenParam>* l_buffer)
 		PositionScan::reportError(5, m_Pos.line, m_Pos.prevcharacter, m_Pos.character);
 		//Panic-mode recovery
 		PrintHandler::printParsingFailedWarning();
-		system("pause");
+		return -1;
 	}
 	//acc
 	else if (to_do == "acc")
@@ -137,9 +135,9 @@ int Trace::action(std::queue<TokenParam>* l_buffer)
 		traceStack.push(*t_e);
 		l_buffer->pop();
 		delete t_e;
-		}
+	}
 #if PRINT_SYNTAX
 	PrintHandler::printParsingAction(t_token, traceStack.top(), to_do);
 #endif
 	return 0;
-	}
+}

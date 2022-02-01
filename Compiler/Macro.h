@@ -1,9 +1,9 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN
 #define DOUBLET_WITH_STORED_POS 0
-#define ARG_REQUIRED 0
+#define ARG_REQUIRED 1
 #define LANGUAGE 0
-#define PRINT_LEX 1
+#define PRINT_LEX 0
 #define PRINT_SYNTAX 0
-#define PRINT_INTERMEDIATE 0
+#define PRINT_INTERMEDIATE 1
 #define INTERM_ASSISTANT 0

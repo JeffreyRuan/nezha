@@ -8,7 +8,7 @@ private:
 
 public:
 	std::queue<TokenParam>buffer;
-	void processToken(const Lexical& lobj, const bool& keep_push);
+	int processToken(const Lexical& lobj, const bool& keep_push);
 
 	Parsing();
 	~Parsing();
